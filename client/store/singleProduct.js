@@ -7,17 +7,16 @@ export const setProduct = product => ({
   product
 })
 
-export const fetchProduct = () => async dispatch => {
+export const fetchProduct = productId => async dispatch => {
   try {
-    const {data} = await axios.get('/api/products/:productId')
-    console.log(data)
+    const {data} = await axios.get(`/api/products/${productId}`)
     dispatch(setProduct(data))
   } catch (error) {
     console.log('error in fetchProduct', error)
   }
 }
 
-const singleProduct = (state = [], action) => {
+const singleProduct = (state = {}, action) => {
   switch (action.type) {
     case SET_PRODUCT:
       return action.product
