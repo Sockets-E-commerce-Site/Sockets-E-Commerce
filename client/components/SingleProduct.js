@@ -13,23 +13,19 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
-    if (this.props.singleProduct) {
-      const {
-        id,
-        invQuantity,
-        title,
-        description,
-        photo,
-        category,
-        price
-      } = this.props.singleProduct
-    }
-
-    console.log('product page!')
+    // const {
+    //   id,
+    //   invQuantity,
+    //   title,
+    //   description,
+    //   photo,
+    //   category,
+    //   price,
+    // } = this.props.singleProduct
 
     return (
       <div>
-        <h1>test updates</h1>
+        <h1>Placeholder Text to hook up single product</h1>
       </div>
     )
   }
