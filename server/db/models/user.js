@@ -6,7 +6,34 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    default: 'New',
+    validate: {
+      len: {
+        args: [2, 20],
+        msg: 'Name must be bwtween 2 and 20 characters long'
+      }
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    default: 'User',
+    validate: {
+      len: {
+        args: [2, 20],
+        msg: 'Name must be between 2 and 20 characters'
+      }
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -56,6 +83,7 @@ User.encryptPassword = function(plainText, salt) {
 /**
  * hooks
  */
+
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()
@@ -67,4 +95,17 @@ User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
+})
+
+User.beforeCreate((user, options) => {
+  if (user.firstName) {
+    const firstName = user.firstName
+    user.firstName = firstName[0].toUpperCase() + firstName.slice(1)
+  }
+
+  if (user.lastName) {
+    const lastName = user.lastName
+
+    user.lastName = lastName[0].toUpperCase() + lastName.slice(1)
+  }
 })
