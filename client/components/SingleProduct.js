@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
+import Product from './Product'
+import ErrorPage from './ErrorPage'
 
 export class SingleProduct extends React.Component {
   // constructor(props) {
@@ -13,19 +15,13 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
-    // const {
-    //   id,
-    //   invQuantity,
-    //   title,
-    //   description,
-    //   photo,
-    //   category,
-    //   price,
-    // } = this.props.singleProduct
-
     return (
       <div>
-        <h1>Placeholder Text to hook up single product</h1>
+        {this.props.product ? (
+          <Product product={this.props.product} />
+        ) : (
+          <ErrorPage />
+        )}
       </div>
     )
   }
