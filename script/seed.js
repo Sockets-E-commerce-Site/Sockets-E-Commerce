@@ -19,12 +19,16 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-
-  console.log(`seeded ${users.length} users`)
+  const seedUsers = async function() {
+    for (let i = 0; i < 100; i++) {
+      await User.create({
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName()
+      })
+    }
+  }
 
   const seedProducts = async function() {
     for (let i = 0; i < 100; i++) {
@@ -39,6 +43,7 @@ async function seed() {
     }
   }
 
+  await seedUsers()
   await seedProducts()
   console.log(`seeded successfully`)
 }
