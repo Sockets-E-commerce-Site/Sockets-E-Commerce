@@ -1,6 +1,18 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Product, Order} = require('../db/models')
+const {Op} = require('sequelize')
+
 module.exports = router
+
+// when you do to cart
+// to get the current order from that user with all the prdocuts inside of that order
+// /api/user/:userId/order/cart
+
+const userNotFound = next => {
+  const error = new Error('Product not found')
+  error.stack = 404
+  next(error)
+}
 
 router.get('/', async (req, res, next) => {
   try {
@@ -23,5 +35,23 @@ router.get('/:id', async (req, res, next) => {
     res.status(200).send(user)
   } catch (error) {
     next(error)
+
+router.get('/:userId/orders/cart', async (req, res, next) => {
+  try {
+    const usersCart = await Order.findOne({
+      where: {
+        [Op.and]: [{id: req.params.userId}, {status: 'in cart'}]
+      },
+      include: {
+        model: Product
+      }
+    })
+    if (!usersCart) {
+      next(userNotFound)
+    } else {
+      res.json(usersCart)
+    }
+  } catch (error) {
+    next(userNotFound)
   }
 })
