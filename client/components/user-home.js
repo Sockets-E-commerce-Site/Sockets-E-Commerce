@@ -7,10 +7,12 @@ import Homepage from './Homepage'
  * COMPONENT
  */
 export const UserHome = props => {
-  // const {email} = props
+  const {email} = props
 
   return (
     <div>
+      <h2>Welcome to Sockets, {email}!</h2>
+      <br />
       <Homepage />
     </div>
   )
