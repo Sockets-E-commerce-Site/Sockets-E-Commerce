@@ -1,12 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
     this.props.getProducts()
   }
-
+  //add another component for the map to list out products listProducts
   render() {
     return (
       <div>
