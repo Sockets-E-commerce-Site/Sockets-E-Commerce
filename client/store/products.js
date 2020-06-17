@@ -7,11 +7,15 @@ export const setProducts = products => ({
   products
 })
 
-export const fetchProducts = () => async dispatch => {
+export const fetchProducts = query => async dispatch => {
   try {
-    console.log('sd')
-    const {data: allproducts} = await axios.get('/api/products')
-    dispatch(setProducts(allproducts))
+    if (!query) {
+      const {data: allproducts} = await axios.get('/api/products')
+      dispatch(setProducts(allproducts))
+    } else {
+      const {data: products} = await axios.get(`/api/products?search=${query}`)
+      dispatch(setProducts(products))
+    }
   } catch (error) {
     console.log('error in fetchProducts', error)
   }
