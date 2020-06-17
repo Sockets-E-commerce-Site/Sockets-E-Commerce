@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const {Op} = require('sequelize')
+
 module.exports = router
 
 const productNotFound = next => {
@@ -10,18 +12,18 @@ const productNotFound = next => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({
-      attributes: [
-        'id',
-        'invQuantity',
-        'title',
-        'description',
-        'photo',
-        'category',
-        'price'
-      ]
-    })
-
+    let filter = {}
+    const search = req.query.search
+    if (search) {
+      filter = {
+        where: {
+          title: {
+            [Op.iLike]: `%${search}%`
+          }
+        }
+      }
+    }
+    const products = await Product.findAll(filter)
     if (!products) {
       next(productNotFound)
     } else {
