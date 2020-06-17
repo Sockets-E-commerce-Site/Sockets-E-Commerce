@@ -1,7 +1,19 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  User,
+  Product,
+  Order,
+  ProductOrder,
+  Review
+} = require('../server/db/models')
+
+const faker = require('faker')
+const productCategories = ['Video Games', 'PC Parts', 'Drones', 'Other']
+const randomInt = function(max) {
+  return Math.floor(Math.random() * Math.floor(max))
+}
 
 async function seed() {
   await db.sync({force: true})
@@ -13,6 +25,21 @@ async function seed() {
   ])
 
   console.log(`seeded ${users.length} users`)
+
+  const seedProducts = async function() {
+    for (let i = 0; i < 100; i++) {
+      await Product.create({
+        invQuantity: 10,
+        title: faker.commerce.productName(),
+        description: faker.lorem.paragraph(),
+        photo: faker.image.technics(),
+        category: productCategories[randomInt(4)],
+        price: faker.commerce.price()
+      })
+    }
+  }
+
+  await seedProducts()
   console.log(`seeded successfully`)
 }
 
