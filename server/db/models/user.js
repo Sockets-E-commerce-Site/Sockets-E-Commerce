@@ -17,15 +17,11 @@ const User = db.define('user', {
   },
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    default: 'New',
     validate: {
       notEmpty: {
         args: true,
         msg: 'Name must be required'
-      },
-      isAlpha: {
-        args: true,
-        msg: 'Name must contain letters'
       },
       len: {
         args: [2, 20],
@@ -35,15 +31,11 @@ const User = db.define('user', {
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    default: 'User',
     validate: {
       notEmpty: {
         args: true,
         msg: 'Name most be required'
-      },
-      isAlpha: {
-        args: true,
-        msg: 'Name most contain letters'
       },
       len: {
         args: [2, 20],
@@ -114,9 +106,14 @@ User.beforeBulkCreate(users => {
 })
 
 User.beforeCreate((user, options) => {
-  const firstName = user.firstName
-  const lastName = user.lastName
+  if (user.firstName) {
+    const firstName = user.firstName
+    user.firstName = firstName[0].toUpperCase() + firstName.slice(1)
+  }
 
-  user.firstName = firstName[0].toUpperCase() + firstName.slice(1)
-  user.lastName = lastName[0].toUpperCase() + lastName.slice(1)
+  if (user.lastName) {
+    const lastName = user.lastName
+
+    user.lastName = lastName[0].toUpperCase() + lastName.slice(1)
+  }
 })

@@ -1,4 +1,8 @@
 const User = require('./user')
+const Order = require('./order')
+const Product = require('./product')
+const Review = require('./review')
+const ProductOrder = require('./productOrder')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -7,6 +11,22 @@ const User = require('./user')
  *    BlogPost.belongsTo(User)
  */
 
+User.hasMany(Order, {
+  foreignKey: {
+    name: 'userId',
+    allowNull: false
+  }
+})
+Order.belongsTo(User)
+
+Order.belongsToMany(Product, {through: ProductOrder})
+Product.belongsToMany(Order, {through: ProductOrder})
+
+User.hasMany(Review)
+Review.belongsTo(User)
+Product.hasMany(Review)
+Review.belongsTo(Product)
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -14,5 +34,9 @@ const User = require('./user')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
+  User,
+  Order,
+  Review,
+  Product,
+  ProductOrder
 }
