@@ -9,9 +9,20 @@ export const setProducts = productList => ({
 
 export const fetchProducts = () => async dispatch => {
   try {
-    const {data} = await axios.get('/api/projects')
-    dispatch(setProducts(data))
+    const {data: allProjects} = await axios.get('/api/projects')
+    dispatch(setProducts(allProjects))
   } catch (error) {
     console.log('error in fetchProducts', error)
   }
 }
+
+const products = (state = [], action) => {
+  switch (action.type) {
+    case SET_PRODUCTS:
+      return action.productList
+    default:
+      return state
+  }
+}
+
+export default products
