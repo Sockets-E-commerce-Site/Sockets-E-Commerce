@@ -6,7 +6,50 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: 'Name must be required'
+      },
+      isAlpha: {
+        args: true,
+        msg: 'Name must contain letters'
+      },
+      len: {
+        args: [2, 20],
+        msg: 'Name must be bwtween 2 and 20 characters long'
+      }
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: 'Name most be required'
+      },
+      isAlpha: {
+        args: true,
+        msg: 'Name most contain letters'
+      },
+      len: {
+        args: [2, 20],
+        msg: 'Name must be between 2 and 20 characters'
+      }
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -56,6 +99,7 @@ User.encryptPassword = function(plainText, salt) {
 /**
  * hooks
  */
+
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()
@@ -67,4 +111,12 @@ User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
+})
+
+User.beforeCreate((user, options) => {
+  const firstName = user.firstName
+  const lastName = user.lastName
+
+  user.firstName = firstName[0].toUpperCase() + firstName.slice(1)
+  user.lastName = lastName[0].toUpperCase() + lastName.slice(1)
 })
