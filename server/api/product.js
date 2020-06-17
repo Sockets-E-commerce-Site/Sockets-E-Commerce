@@ -9,9 +9,9 @@ const productNotFound = next => {
   next(error)
 }
 
-// %search is for searching a word that ends with whats in the DB
-// search % is for searching a word that starts wahts in the DB
-// %search% is match anything in that DB that has that serach word in it
+// %tanks find any values that  end with tanks
+// tanks% find any values that start  with tanks
+// %tanks% find any values that have tanks in any postion
 
 // this will be our serarch catelog
 // waht ever we search for in the catelog it will find that product from the title that matches the search query we typed in
