@@ -19,10 +19,6 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     default: 'New',
     validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Name must be required'
-      },
       len: {
         args: [2, 20],
         msg: 'Name must be bwtween 2 and 20 characters long'
@@ -33,10 +29,6 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     default: 'User',
     validate: {
-      notEmpty: {
-        args: true,
-        msg: 'Name most be required'
-      },
       len: {
         args: [2, 20],
         msg: 'Name must be between 2 and 20 characters'
