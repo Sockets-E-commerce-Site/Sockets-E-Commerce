@@ -23,6 +23,7 @@ export class SingleProduct extends React.Component {
     this.setState({addedToCart: true})
     console.log(this.state)
   }
+
   render() {
     return (
       <div>
