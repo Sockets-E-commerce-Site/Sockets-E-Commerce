@@ -3,21 +3,22 @@ import {connect} from 'react-redux'
 import {fetchOrders} from '../store/cart'
 
 class OrderPage extends Component {
-  // constructor(){
-  //   super()
-  //   this.state = {
-  //     isLoaded: false
-  //   }
-  // }
+  constructor() {
+    super()
+    this.state = {
+      isLoaded: false
+    }
+  }
 
   componentDidMount() {
-    // this.setState({isLoaded: true})
+    this.setState({isLoaded: true})
     const userId = this.props.user
     this.props.loadOrder(userId)
   }
 
   render() {
     console.log(this.props)
+    const {isLoaded} = this.state
     return (
       <div>
         <h1>hi</h1>
