@@ -18,7 +18,14 @@ class Cart extends React.Component {
           <ErrorPage />
         ) : this.props.cart.products.length > 0 ? (
           this.props.cart.products.map(product => {
-            return <ProductCard product={product} key={product.id} />
+            return (
+              <ProductCard
+                product={product}
+                userId={this.props.user.id}
+                deleteItem={this.props.deleteItem}
+                key={product.id}
+              />
+            )
           })
         ) : (
           <div>
@@ -32,14 +39,15 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     fetchCart: userId => dispatch(fetchCart(userId)),
-    deleteItem: productId => dispatch(deleteItem(productId))
+    deleteItem: (productId, userId) => dispatch(deleteItem(productId, userId))
   }
 }
 
