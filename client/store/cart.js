@@ -9,7 +9,7 @@ export const setCart = cart => ({
 
 export const fetchCart = userId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/users/${userId}/orders/cart`)
+    const {data} = await axios.get(`/api/users/orders/cart/${userId}`)
     dispatch(setCart(data))
   } catch (error) {
     console.log('error in fetchCart', error)
