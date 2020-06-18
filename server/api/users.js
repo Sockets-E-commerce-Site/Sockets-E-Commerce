@@ -67,7 +67,6 @@ router.put('/orders/cart', async (req, res, next) => {
         status: 'in cart'
       }
     })
-
     const product = await Product.findByPk(req.body.productId)
 
     await newOrder.addProduct(product)
