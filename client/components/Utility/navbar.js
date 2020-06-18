@@ -2,12 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
+import SearchProduct from './SearchProduct'
 import {logout} from '../../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <nav className="flex items-center justify-between flex-wrap bg-indigo-900 p-6">
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       <span className="font-semibold text-xl tracking-tight">Sockets</span>
+    </div>
+    <div className="flex  flex-shrink-0 text-white ">
+      <SearchProduct />
     </div>
     <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       {isLoggedIn ? (
@@ -29,6 +33,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white mr-4"
           >
             <NavLink to="/users/orders/cart">Cart</NavLink>
+          </a>
+          <a
+            href="#responsive-header"
+            className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white"
+          >
+            <NavLink to="/orders">Orders</NavLink>
           </a>
           <a
             href="#responsive-header"

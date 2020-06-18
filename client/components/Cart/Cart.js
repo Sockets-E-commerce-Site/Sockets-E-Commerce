@@ -7,8 +7,10 @@ import ProductCard from '../Products/ProductCard'
 
 class Cart extends React.Component {
   componentDidMount() {
-    const userId = this.props.user.id
-    this.props.fetchCart(userId)
+    if (this.props.user.id) {
+      const userId = this.props.user.id
+      this.props.fetchCart(userId)
+    }
   }
 
   render() {

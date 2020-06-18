@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../../store/products'
 import ProductList from './ProductList'
-import SearchProduct from './SearchProduct'
+// import SearchProduct from './SearchProduct'
 
 class AllProducts extends Component {
   constructor() {
@@ -29,7 +29,7 @@ class AllProducts extends Component {
     const {filterText} = this.state
     return (
       <div>
-        <SearchProduct />
+        {/* <SearchProduct /> */}
         {/* <select
           id="select"
           value={filterText}
