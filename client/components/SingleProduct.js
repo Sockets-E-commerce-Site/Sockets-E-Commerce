@@ -29,7 +29,6 @@ export class SingleProduct extends React.Component {
           productId: this.props.product.id
         }
       )
-      console.log(data)
     } else {
       console.log("You're not a user!")
     }
