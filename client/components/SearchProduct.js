@@ -20,7 +20,6 @@ class SearchForGame extends Component {
   }
 
   render() {
-    console.log(this.state.search)
     return (
       <div className="flex items-center border-b border-b-2 border-indigo-900 py-2">
         <input

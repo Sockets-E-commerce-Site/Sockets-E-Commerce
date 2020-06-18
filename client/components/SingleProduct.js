@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
+import Axios from 'axios'
 import Product from './Product'
 import ErrorPage from './ErrorPage'
 
@@ -19,9 +20,18 @@ export class SingleProduct extends React.Component {
     this.props.fetchProduct(productId)
   }
 
-  handleClick() {
-    this.setState({addedToCart: true})
-    console.log(this.state)
+  async handleClick() {
+    if (this.props.user.id) {
+      this.setState({addedToCart: true})
+      const {data} = await Axios.put(
+        `/api/users/${this.props.user.id}/orders/cart`,
+        {
+          productId: this.props.product.id
+        }
+      )
+    } else {
+      console.log("You're not a user!")
+    }
   }
 
   render() {
@@ -49,7 +59,8 @@ export class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    product: state.singleProduct
+    product: state.singleProduct,
+    user: state.user
   }
 }
 
