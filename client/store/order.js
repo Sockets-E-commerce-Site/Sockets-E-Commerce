@@ -9,17 +9,15 @@ export const getOrders = orderInfo => ({
 
 export const fetchOrders = userId => async dispatch => {
   try {
-    console.log('1')
+    console.log('userId', userId)
     const {data: orders} = await axios.get(`/api/orders/${userId}`)
-    console.log('2')
     dispatch(getOrders(orders))
-    console.log('3')
   } catch (error) {
     console.log('error in fetchOrders thunk', error)
   }
 }
 
-const order = (state = {}, action) => {
+const order = (state = [], action) => {
   switch (action.type) {
     case GET_ORDERS:
       return action.orderInfo

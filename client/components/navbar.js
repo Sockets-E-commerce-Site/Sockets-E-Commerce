@@ -37,15 +37,15 @@ const Navbar = ({handleClick, isLoggedIn, userId}) => (
           <a
             href="#responsive-header"
             className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white"
-            onClick={handleClick}
           >
-            <NavLink to="/">Logout</NavLink>
+            <NavLink to="/orders">Orders</NavLink>
           </a>
           <a
             href="#responsive-header"
             className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white"
+            onClick={handleClick}
           >
-            <NavLink to="/orders">Orders</NavLink>
+            <NavLink to="/">Logout</NavLink>
           </a>
         </div>
       ) : (

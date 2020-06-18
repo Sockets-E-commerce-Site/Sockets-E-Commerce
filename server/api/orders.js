@@ -30,7 +30,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId
-    const usersOrders = await Order.findOne({
+    const usersOrders = await Order.findAll({
       where: {
         userId
       },
