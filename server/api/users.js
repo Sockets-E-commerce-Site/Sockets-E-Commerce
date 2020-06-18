@@ -58,9 +58,9 @@ router.get('/:userId/orders/cart', async (req, res, next) => {
   }
 })
 
-router.put('/:userId/orders/cart', async (req, res, next) => {
+router.put('/orders/cart', async (req, res, next) => {
   try {
-    const userId = req.params.userId
+    const userId = req.body.userId
     const [newOrder, created] = await Order.findOrCreate({
       where: {
         userId,

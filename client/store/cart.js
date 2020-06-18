@@ -18,14 +18,14 @@ export const fetchCart = userId => async dispatch => {
 
 export const deleteItem = (productId, userId) => async dispatch => {
   try {
-    const {data: updatedCart} = axios.delete(`/api/users/orders/cart`, {
-      body: {
-        productId,
-        userId
+    const {data: updatedCart} = await axios.delete(`/api/users/orders/cart`, {
+      data: {
+        userId,
+        productId
       }
     })
-    console.log(updatedCart)
-    // dispatch(setCart(updatedCart))
+
+    dispatch(setCart(updatedCart))
   } catch (error) {
     console.log('error in deleteItem', error)
   }
