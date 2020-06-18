@@ -83,3 +83,32 @@ router.put('/:userId/orders/cart', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete('/:userId/orders/cart', async (req, res, next) => {
+  try {
+    const userId = req.params.userId
+    const cart = await Order.findOne({
+      where: {
+        userId,
+        status: 'in cart'
+      },
+
+      include: Product
+    })
+
+    const product = await Product.findByPk(req.body.productId)
+
+    await cart.removeProduct(product)
+
+    const updatedCart = await Order.findOne({
+      where: {
+        id: cart.id
+      },
+      include: Product
+    })
+
+    res.json(updatedCart)
+  } catch (error) {
+    next(error)
+  }
+})
