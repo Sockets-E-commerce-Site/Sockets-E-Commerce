@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import SingleProduct from './SingleProduct'
 
 export default class Homepage extends Component {
   render() {
