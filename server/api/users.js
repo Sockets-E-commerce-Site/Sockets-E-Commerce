@@ -42,12 +42,12 @@ router.get('/:userId/orders/cart', async (req, res, next) => {
   try {
     const usersCart = await Order.findOne({
       where: {
-        [Op.and]: [{userId: req.params.userId}, {status: 'in cart'}]
+        userId: req.params.userId,
+        status: 'in cart'
       },
-      include: {
-        model: Product
-      }
+      include: Product
     })
+
     if (!usersCart) {
       next(userNotFound)
     } else {
