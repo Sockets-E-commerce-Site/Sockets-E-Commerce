@@ -31,7 +31,6 @@ class OrderPage extends Component {
     console.log('all orders', orders)
     return (
       <div>
-        <h1>hi</h1>
         {isLoaded && orders.length ? (
           <div>
             {orders.map(order => {
