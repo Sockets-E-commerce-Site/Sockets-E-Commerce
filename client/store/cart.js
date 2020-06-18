@@ -7,9 +7,9 @@ export const setCart = cart => ({
   type: SET_CART,
   cart
 })
-export const removeItem = item => ({
+export const removeItem = productId => ({
   type: REMOVE_ITEM,
-  cartId: item.id
+  productId
 })
 
 export const fetchCart = userId => async dispatch => {
@@ -21,10 +21,10 @@ export const fetchCart = userId => async dispatch => {
   }
 }
 
-export const deleteItem = item => async dispatch => {
+export const deleteItem = productId => async dispatch => {
   try {
-    axios.delete(`/api/users/101/orders/cart/${item.id}`)
-    dispatch(removeItem(item))
+    axios.delete(`/api/:userId/orders/cart/${productId.id}`)
+    dispatch(removeItem(productId))
   } catch (error) {
     console.log('error in removeItem', error)
   }
@@ -34,6 +34,8 @@ const cart = (state = {}, action) => {
   switch (action.type) {
     case SET_CART:
       return action.cart
+    case REMOVE_ITEM:
+      return state.filter(product => product.id !== action.productId)
     default:
       return state
   }

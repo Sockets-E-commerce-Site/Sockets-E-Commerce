@@ -39,7 +39,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchCart: userId => dispatch(fetchCart(userId)),
-    removeItem: item => dispatch(deleteItem(item))
+    deleteItem: productId => dispatch(deleteItem(productId))
   }
 }
 
