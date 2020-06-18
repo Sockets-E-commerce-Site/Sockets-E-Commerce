@@ -35,6 +35,8 @@ router.get('/:id', async (req, res, next) => {
     res.status(200).send(user)
   } catch (error) {
     next(error)
+  }
+})
 
 router.get('/:userId/orders/cart', async (req, res, next) => {
   try {
