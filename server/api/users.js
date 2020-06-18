@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Product, Order} = require('../db/models')
+const {User, Product, Order, ProductOrders} = require('../db/models')
 const {Op} = require('sequelize')
 
 module.exports = router
@@ -28,6 +28,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findByPk(id)
+    res.status(200).send(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:userId/orders/cart', async (req, res, next) => {
   try {
     const usersCart = await Order.findOne({
@@ -35,7 +45,8 @@ router.get('/:userId/orders/cart', async (req, res, next) => {
         [Op.and]: [{userId: req.params.userId}, {status: 'in cart'}]
       },
       include: {
-        model: Product
+        model: Product,
+        ProductOrders
       }
     })
     if (!usersCart) {
@@ -45,5 +56,31 @@ router.get('/:userId/orders/cart', async (req, res, next) => {
     }
   } catch (error) {
     next(userNotFound)
+  }
+})
+
+router.put('/:userId/orders/cart', async (req, res, next) => {
+  try {
+    const userId = req.params.userId
+    const [newOrder, created] = await Order.findOrCreate({
+      where: {
+        userId,
+        status: 'in cart'
+      }
+    })
+
+    const product = await Product.findByPk(req.body.productId)
+
+    await newOrder.addProduct(product)
+
+    const cart = await Order.findOne({
+      where: {
+        id: newOrder.id
+      },
+      include: Product
+    })
+    res.json(cart)
+  } catch (error) {
+    next(error)
   }
 })
