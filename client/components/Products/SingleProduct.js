@@ -23,12 +23,10 @@ export class SingleProduct extends React.Component {
   async handleClick() {
     if (this.props.user.id) {
       this.setState({addedToCart: true})
-      const {data} = await Axios.put(
-        `/api/users/${this.props.user.id}/orders/cart`,
-        {
-          productId: this.props.product.id
-        }
-      )
+      const {data} = await Axios.put(`/api/users/orders/cart`, {
+        productId: this.props.product.id,
+        userId: this.props.user.id
+      })
     } else {
       console.log("You're not a user!")
     }

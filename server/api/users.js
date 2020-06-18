@@ -38,7 +38,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/orders/cart', async (req, res, next) => {
+router.get('/orders/cart/:userId', async (req, res, next) => {
   try {
     const usersCart = await Order.findOne({
       where: {

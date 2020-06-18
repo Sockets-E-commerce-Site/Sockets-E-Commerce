@@ -7,7 +7,7 @@ import ProductCard from '../Products/ProductCard'
 
 class Cart extends React.Component {
   componentDidMount() {
-    const {userId} = this.props.match.params
+    const userId = this.props.user.id
     this.props.fetchCart(userId)
   }
 

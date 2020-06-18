@@ -4,9 +4,10 @@ import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {logout} from '../../store'
 
+
+const Navbar = ({handleClick, isLoggedIn}) => (
 import SearchProduct from './SearchProduct'
 
-const Navbar = ({handleClick, isLoggedIn, userId}) => (
   <nav className="flex items-center justify-between flex-wrap bg-indigo-900 p-6">
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       <span className="font-semibold text-xl tracking-tight">Sockets</span>
@@ -33,7 +34,7 @@ const Navbar = ({handleClick, isLoggedIn, userId}) => (
             href="#responsive-header"
             className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white mr-4"
           >
-            <NavLink to={`/users/${userId}/orders/cart`}>Cart</NavLink>
+            <NavLink to="/users/orders/cart">Cart</NavLink>
           </a>
           <a
             href="#responsive-header"
@@ -88,8 +89,7 @@ const Navbar = ({handleClick, isLoggedIn, userId}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
-    userId: state.user.id
+    isLoggedIn: !!state.user.id
   }
 }
 
