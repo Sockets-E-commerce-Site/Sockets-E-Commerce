@@ -36,7 +36,7 @@ async function seed() {
         invQuantity: 10,
         title: faker.commerce.productName(),
         description: faker.lorem.paragraph(),
-        photo: faker.image.technics(),
+        photo: faker.image.cats(),
         category: productCategories[randomInt(4)],
         price: faker.commerce.price()
       })
