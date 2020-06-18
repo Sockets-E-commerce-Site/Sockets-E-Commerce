@@ -30,7 +30,7 @@ class AllProducts extends Component {
     return (
       <div>
         <SearchProduct />
-        <select
+        {/* <select
           id="select"
           value={filterText}
           defaultValue="all"
@@ -40,7 +40,7 @@ class AllProducts extends Component {
           <option value="PC Parts">PC Parts</option>
           <option value="Video Games">Video Games</option>
           <option value="Drones">Drones</option>
-        </select>
+        </select> */}
         <ProductList products={products} />
       </div>
     )

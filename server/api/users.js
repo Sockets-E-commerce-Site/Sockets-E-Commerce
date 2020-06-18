@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email', 'isAdmin', 'firstName', 'lastName']
+      attributes: ['id', 'email']
     })
     res.json(users)
   } catch (err) {
@@ -42,7 +42,7 @@ router.get('/:userId/orders/cart', async (req, res, next) => {
   try {
     const usersCart = await Order.findOne({
       where: {
-        [Op.and]: [{id: req.params.userId}, {status: 'in cart'}]
+        [Op.and]: [{userId: req.params.userId}, {status: 'in cart'}]
       },
       include: {
         model: Product,
