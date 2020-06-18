@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
-import {logout} from '../store'
+import {logout} from '../../store'
 
 const Navbar = ({handleClick, isLoggedIn, userId}) => (
   <nav className="flex items-center justify-between flex-wrap bg-indigo-900 p-6">
