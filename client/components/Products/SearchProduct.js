@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/products'
+import {fetchProducts} from '../../store/products'
 
 class SearchForGame extends Component {
   constructor() {

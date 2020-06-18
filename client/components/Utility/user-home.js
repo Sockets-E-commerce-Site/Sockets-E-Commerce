@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Homepage from './Homepage'
+import Homepage from '../Homepage'
 
 /**
  * COMPONENT

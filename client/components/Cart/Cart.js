@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from '../store/cart'
-import ErrorPage from './ErrorPage'
-import ProductCard from './ProductCard'
+import {fetchCart} from '../../store/cart'
+import ErrorPage from '../Utility/ErrorPage'
+import ProductCard from '../Products/ProductCard'
 //will need a fetch(view), update, remove in redux
 
 class Cart extends React.Component {

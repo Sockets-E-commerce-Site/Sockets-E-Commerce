@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
-import {logout} from '../store'
+import {logout} from '../../store'
+
 import SearchProduct from './SearchProduct'
 
 const Navbar = ({handleClick, isLoggedIn, userId}) => (

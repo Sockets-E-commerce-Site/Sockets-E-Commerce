@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProduct} from '../store/singleProduct'
+import {fetchProduct} from '../../store/singleProduct'
 import Axios from 'axios'
 import Product from './Product'
-import ErrorPage from './ErrorPage'
+import ErrorPage from '../Utility/ErrorPage'
 
 export class SingleProduct extends React.Component {
   constructor(props) {

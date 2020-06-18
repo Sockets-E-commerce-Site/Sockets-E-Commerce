@@ -43,8 +43,25 @@ async function seed() {
     }
   }
 
+  const seedReviews = async function() {
+    for (let i = 0; i < 200; i++) {
+      const user = await User.findByPk(randomInt(100) + 1)
+      const product = await Product.findByPk(randomInt(100) + 1)
+
+      const review = await Review.create({
+        rating: randomInt(5) + 1,
+        title: faker.lorem.sentence(),
+        content: faker.lorem.paragraph()
+      })
+
+      await review.setUser(user)
+      await product.addReview(review)
+    }
+  }
   await seedUsers()
   await seedProducts()
+  await seedReviews()
+
   console.log(`seeded successfully`)
 }
 
