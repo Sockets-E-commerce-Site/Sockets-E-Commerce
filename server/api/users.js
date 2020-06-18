@@ -1,6 +1,18 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Product, Order} = require('../db/models')
+const {Op} = require('sequelize')
+
 module.exports = router
+
+// when you do to cart
+// to get the current order from that user with all the prdocuts inside of that order
+// /api/user/:userId/order/cart
+
+const userNotFound = next => {
+  const error = new Error('Product not found')
+  error.stack = 404
+  next(error)
+}
 
 router.get('/', async (req, res, next) => {
   try {
@@ -13,5 +25,89 @@ router.get('/', async (req, res, next) => {
     res.json(users)
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findByPk(id)
+    res.status(200).send(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/orders/cart/:userId', async (req, res, next) => {
+  try {
+    const usersCart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        status: 'in cart'
+      },
+      include: Product
+    })
+
+    if (!usersCart) {
+      next(userNotFound)
+    } else {
+      res.json(usersCart)
+    }
+  } catch (error) {
+    next(userNotFound)
+  }
+})
+
+router.put('/orders/cart', async (req, res, next) => {
+  try {
+    const userId = req.body.userId
+    const [newOrder, created] = await Order.findOrCreate({
+      where: {
+        userId,
+        status: 'in cart'
+      }
+    })
+    const product = await Product.findByPk(req.body.productId)
+
+    await newOrder.addProduct(product)
+
+    const cart = await Order.findOne({
+      where: {
+        id: newOrder.id
+      },
+      include: Product
+    })
+    res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/orders/cart', async (req, res, next) => {
+  try {
+    const userId = req.body.userId
+    const cart = await Order.findOne({
+      where: {
+        userId,
+        status: 'in cart'
+      },
+
+      include: Product
+    })
+
+    const product = await Product.findByPk(req.body.productId)
+
+    await cart.removeProduct(product)
+
+    const updatedCart = await Order.findOne({
+      where: {
+        id: cart.id
+      },
+      include: Product
+    })
+
+    res.json(updatedCart)
+  } catch (error) {
+    next(error)
   }
 })

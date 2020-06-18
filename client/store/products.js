@@ -2,15 +2,20 @@ import axios from 'axios'
 
 const SET_PRODUCTS = 'SET_PRODUCTS'
 
-export const setProducts = productList => ({
+export const setProducts = products => ({
   type: SET_PRODUCTS,
-  productList
+  products
 })
 
-export const fetchProducts = () => async dispatch => {
+export const fetchProducts = query => async dispatch => {
   try {
-    const {data: allProjects} = await axios.get('/api/projects')
-    dispatch(setProducts(allProjects))
+    if (!query) {
+      const {data: allproducts} = await axios.get('/api/products')
+      dispatch(setProducts(allproducts))
+    } else {
+      const {data: products} = await axios.get(`/api/products?search=${query}`)
+      dispatch(setProducts(products))
+    }
   } catch (error) {
     console.log('error in fetchProducts', error)
   }
@@ -19,7 +24,7 @@ export const fetchProducts = () => async dispatch => {
 const products = (state = [], action) => {
   switch (action.type) {
     case SET_PRODUCTS:
-      return action.productList
+      return action.products
     default:
       return state
   }
