@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from '../../store/cart'
+import {fetchCart, deleteItem} from '../../store/cart'
 import ErrorPage from '../Utility/ErrorPage'
 import ProductCard from '../Products/ProductCard'
 //will need a fetch(view), update, remove in redux
@@ -38,7 +38,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: userId => dispatch(fetchCart(userId))
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    deleteItem: productId => dispatch(deleteItem(productId))
   }
 }
 
