@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Product, Order, ProductOrders} = require('../db/models')
+const {User, Product, Order} = require('../db/models')
 const {Op} = require('sequelize')
 
 module.exports = router
@@ -45,8 +45,7 @@ router.get('/:userId/orders/cart', async (req, res, next) => {
         [Op.and]: [{userId: req.params.userId}, {status: 'in cart'}]
       },
       include: {
-        model: Product,
-        ProductOrders
+        model: Product
       }
     })
     if (!usersCart) {
