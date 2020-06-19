@@ -23,6 +23,7 @@ class CreateReview extends Component {
 
   // getting UserID from the user State
   // ProductID from SingleProduct component from this.props.match.params
+  // maybe check form number validations?
   handleSubmit(e) {
     e.preventDefault()
     const {title, content, rating} = this.state
@@ -43,7 +44,6 @@ class CreateReview extends Component {
   }
 
   render() {
-    // object deconstructing
     const {rating, title, content} = this.state
     return (
       <div>
