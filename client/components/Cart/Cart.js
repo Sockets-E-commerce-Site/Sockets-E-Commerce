@@ -50,10 +50,14 @@ class Cart extends React.Component {
             <h1>Nothing in cart!</h1>
           </div>
         )}
-        <NavLink to="/checkout" type="button" onClick={this.checkout}>
-          {' '}
-          Checkout!
-        </NavLink>
+        {this.props.cart.id && this.props.cart.products.length > 0 ? (
+          <NavLink to="/checkout" type="button" onClick={this.checkout}>
+            {' '}
+            Checkout!
+          </NavLink>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
