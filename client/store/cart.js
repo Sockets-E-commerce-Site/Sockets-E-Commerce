@@ -37,6 +37,18 @@ export const deleteItem = (productId, userId) => async dispatch => {
   }
 }
 
+//add an item to the cart
+export const addItem = (productId, userId) => async dispatch => {
+  try {
+    const {data: updatedCart} = await axios.put(`/api/users/orders/cart`, {
+      productId,
+      userId
+    })
+    dispatch(setCart(updatedCart))
+  } catch (error) {
+    console.log('error in adding to cart', error)
+  }
+}
 
 export const checkout = () => async dispatch => {
   try {
