@@ -11,6 +11,7 @@ const {
 
 const faker = require('faker')
 const productCategories = ['Video Games', 'PC Parts', 'Drones', 'Other']
+const orderStatuses = ['pending shipping', 'completed']
 const randomInt = function(max) {
   return Math.floor(Math.random() * Math.floor(max))
 }
@@ -58,9 +59,27 @@ async function seed() {
       await product.addReview(review)
     }
   }
+
+  const seedOrders = async function() {
+    for (let i = 0; i < 200; i++) {
+      const user = await User.findByPk(randomInt(100) + 1)
+      const order = await Order.create({
+        status: orderStatuses[randomInt(2)],
+        userId: user.id
+      })
+      const product1 = await Product.findByPk(randomInt(100) + 1)
+      const product2 = await Product.findByPk(randomInt(100) + 1)
+      const product3 = await Product.findByPk(randomInt(100) + 1)
+
+      await order.addProduct(product1)
+      await order.addProduct(product2)
+      await order.addProduct(product3)
+    }
+  }
   await seedUsers()
   await seedProducts()
   await seedReviews()
+  await seedOrders()
 
   console.log(`seeded successfully`)
 }
