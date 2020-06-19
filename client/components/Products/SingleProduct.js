@@ -4,6 +4,8 @@ import {fetchProduct} from '../../store/singleProduct'
 import Axios from 'axios'
 import Product from './Product'
 import ErrorPage from '../Utility/ErrorPage'
+import ReviewsForProduct from '../Reviews/ReviewsForProduct'
+import CreateReview from '../Reviews/CreateReview'
 
 export class SingleProduct extends React.Component {
   constructor(props) {
@@ -33,6 +35,7 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
+    const {productId} = this.props.match.params
     return (
       <div>
         {this.state.addedToCart ? (
@@ -50,6 +53,8 @@ export class SingleProduct extends React.Component {
         <button type="button" onClick={this.handleClick}>
           Add To Cart
         </button>
+        <CreateReview productId={productId} />
+        <ReviewsForProduct productId={productId} />
       </div>
     )
   }
