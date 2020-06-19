@@ -15,7 +15,8 @@ export class SingleProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      addedToCart: false
+      addedToCart: false,
+      success: true
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -28,11 +29,15 @@ export class SingleProduct extends React.Component {
 
   async handleClick() {
     if (this.props.user.id) {
-      this.setState({addedToCart: true})
       const {data} = await Axios.put(`/api/users/orders/cart`, {
         productId: this.props.product.id,
         userId: this.props.user.id
       })
+      if (data) {
+        this.setState({addedToCart: true})
+      } else {
+        this.setState({success: false})
+      }
     } else {
       console.log("You're not a user!")
     }
@@ -49,7 +54,7 @@ export class SingleProduct extends React.Component {
         ) : (
           <div />
         )}
-        {this.props.product ? (
+        {this.props.product && this.state.success ? (
           <Product product={this.props.product} />
         ) : (
           <ErrorPage />
