@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import Homepage from '../Homepage'
 
 /**
- * COMPONENT
+ once logged in, userHome welcomes the user and shows you are logged in.
  */
 export const UserHome = props => {
   const {email} = props
