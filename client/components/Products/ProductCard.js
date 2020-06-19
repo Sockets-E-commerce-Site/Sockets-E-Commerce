@@ -8,10 +8,11 @@ export default function ProductCard(props) {
   const {title, price, id} = props.product
   const {userId} = props
   const {invQuantity} = props.product
-  let quantity = props.product.productOrder.productQuantity
 
+  let quantity = props.product.productOrder.productQuantity
   const selectBar = []
 
+  // for loop to create individual options for Select
   for (let i = 1; i <= invQuantity; i++) {
     selectBar.push(<option value={`${i}`}>{i}</option>)
   }
@@ -25,6 +26,7 @@ export default function ProductCard(props) {
         Remove from Cart
       </button>
 
+      {/* quantity section */}
       <label htmlFor="quantity">Quantity: </label>
       <select
         name="quantity"

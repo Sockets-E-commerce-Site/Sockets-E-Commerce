@@ -1,12 +1,17 @@
 import axios from 'axios'
 
+//ACTION TYPES
 const SET_CART = 'SET_CART'
 
+//ACTION CREATORS
 export const setCart = cart => ({
   type: SET_CART,
   cart
 })
 
+//THUNKS
+
+//set cart to store
 export const fetchCart = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/users/orders/cart/${userId}`)
@@ -16,6 +21,7 @@ export const fetchCart = userId => async dispatch => {
   }
 }
 
+//remove an item from the cart
 export const deleteItem = (productId, userId) => async dispatch => {
   try {
     const {data: updatedCart} = await axios.delete(`/api/users/orders/cart`, {
@@ -38,7 +44,10 @@ export const checkout = () => async dispatch => {
     dispatch(setCart(finalcart))
   } catch (error) {
     console.log('error in checkoutThunk', error)
+  }
+}
 
+//update quantity of product in cart
 export const updateQuantity = (
   productId,
   userId,
@@ -56,6 +65,7 @@ export const updateQuantity = (
   }
 }
 
+//REDUCER
 const cart = (state = {}, action) => {
   switch (action.type) {
     case SET_CART:
