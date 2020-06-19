@@ -31,6 +31,23 @@ export const deleteItem = (productId, userId) => async dispatch => {
   }
 }
 
+export const updateQuantity = (
+  productId,
+  userId,
+  productQuantity
+) => async dispatch => {
+  try {
+    const {data: updatedCart} = await axios.put('/api/cart/edit', {
+      userId,
+      productId,
+      productQuantity
+    })
+    dispatch(setCart(updatedCart))
+  } catch (error) {
+    console.log('error in updateQuantity', error)
+  }
+}
+
 const cart = (state = {}, action) => {
   switch (action.type) {
     case SET_CART:

@@ -7,7 +7,7 @@ import React from 'react'
 export default function ProductCard(props) {
   const {title, price, id} = props.product
   const {userId} = props
-  const quantity = props.product.productOrder.productQuantity
+  let quantity = props.product.productOrder.productQuantity
 
   return (
     <div>
@@ -15,7 +15,25 @@ export default function ProductCard(props) {
       <h1>Price: {price}</h1>
       <h1>Quantity: {quantity}</h1>
       <button type="button" onClick={() => props.deleteItem(id, userId)}>
-        x
+        Remove from Cart
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          quantity--
+          return props.updateQuantity(id, userId, quantity)
+        }}
+      >
+        -
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          quantity++
+          return props.updateQuantity(id, userId, quantity)
+        }}
+      >
+        +
       </button>
     </div>
   )
