@@ -32,7 +32,8 @@ router.get('/:userId', async (req, res, next) => {
     const userId = req.params.userId
     const usersOrders = await Order.findAll({
       where: {
-        userId
+        userId,
+        [Op.or]: [{status: 'completed'}, {status: 'pending shipping'}]
       },
       include: Product
     })
