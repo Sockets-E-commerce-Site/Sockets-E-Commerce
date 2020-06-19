@@ -6,7 +6,7 @@ import ProductCard from '../Products/ProductCard'
 //will need a fetch(view), update, remove in redux
 
 /*
-Parent Cart component
+Parent Cart component that links to child ProductCard functional component to render out all products in a users cart.
 */
 
 class Cart extends React.Component {
