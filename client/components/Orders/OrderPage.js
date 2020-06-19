@@ -27,7 +27,9 @@ class OrderPage extends Component {
     const {isLoaded} = this.state
     return (
       <div>
-        {isLoaded && orders.length ? (
+        {!this.props.cart.id ? (
+          <ErrorPage />
+        ) : isLoaded && orders.length ? (
           <div>
             {orders.map(order => <UsersOrders key={order.id} order={order} />)}
           </div>
