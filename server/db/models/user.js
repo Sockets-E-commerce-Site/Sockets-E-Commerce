@@ -17,7 +17,7 @@ const User = db.define('user', {
   },
   firstName: {
     type: Sequelize.STRING,
-    default: 'New',
+    defaultValue: 'New',
     validate: {
       len: {
         args: [2, 20],
@@ -27,7 +27,7 @@ const User = db.define('user', {
   },
   lastName: {
     type: Sequelize.STRING,
-    default: 'User',
+    defaultValue: 'User',
     validate: {
       len: {
         args: [2, 20],
