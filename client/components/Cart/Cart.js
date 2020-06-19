@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, deleteItem, checkout} from '../../store/cart'
+import {fetchCart, deleteItem, updateQuantity, checkout} from '../../store/cart'
 import ErrorPage from '../Utility/ErrorPage'
 import ProductCard from '../Products/ProductCard'
 import {NavLink} from 'react-router-dom'
@@ -40,6 +40,7 @@ class Cart extends React.Component {
                 product={product}
                 userId={this.props.user.id}
                 deleteItem={this.props.deleteItem}
+                updateQuantity={this.props.updateQuantity}
                 key={product.id}
               />
             )
@@ -70,6 +71,8 @@ const mapDispatch = dispatch => {
     fetchCart: userId => dispatch(fetchCart(userId)),
     deleteItem: (productId, userId) => dispatch(deleteItem(productId, userId)),
     checkout: () => dispatch(checkout())
+    updateQuantity: (productId, userId, productQuantity) =>
+      dispatch(updateQuantity(productId, userId, productQuantity))
   }
 }
 

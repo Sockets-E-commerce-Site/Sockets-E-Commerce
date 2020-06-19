@@ -3,6 +3,7 @@ const {Product, User, ProductOrder, Order} = require('../db/models')
 
 module.exports = router
 
+// alter product quantity in cart
 router.put('/edit', async (req, res, next) => {
   try {
     const {userId, productId, productQuantity} = req.body
