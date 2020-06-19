@@ -25,9 +25,10 @@ export default function ProductCard(props) {
       <button type="button" onClick={() => props.deleteItem(id, userId)}>
         Remove from Cart
       </button>
+      <br />
 
       {/* quantity section */}
-      <label htmlFor="quantity">Quantity: </label>
+      <label htmlFor="quantity">Set Quantity: </label>
       <select
         name="quantity"
         onChange={e => props.updateQuantity(id, userId, e.target.value)}

@@ -67,6 +67,12 @@ async function seed() {
         status: orderStatuses[randomInt(2)],
         userId: user.id
       })
+
+      const cart = await Order.create({
+        status: 'in cart',
+        userId: user.id
+      })
+
       const product1 = await Product.findByPk(randomInt(100) + 1)
       const product2 = await Product.findByPk(randomInt(100) + 1)
       const product3 = await Product.findByPk(randomInt(100) + 1)
