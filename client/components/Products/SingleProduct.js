@@ -4,6 +4,8 @@ import {fetchProduct} from '../../store/singleProduct'
 import Axios from 'axios'
 import Product from './Product'
 import ErrorPage from '../Utility/ErrorPage'
+import ReviewsForProduct from '../Reviews/ReviewsForProduct'
+import CreateReview from '../Reviews/CreateReview'
 
 /*
 parent SingleProduct component to render each individual product when you click from the products page. Connects to the child functional component Product.
@@ -37,6 +39,7 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
+    const {productId} = this.props.match.params
     return (
       <div>
         {this.state.addedToCart ? (
@@ -54,6 +57,8 @@ export class SingleProduct extends React.Component {
         <button type="button" onClick={this.handleClick}>
           Add To Cart
         </button>
+        <CreateReview productId={productId} />
+        <ReviewsForProduct productId={productId} />
       </div>
     )
   }

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const {Product, Order, Review} = require('../db/models')
-const {Op, EmptyResultError} = require('sequelize')
+const {Op} = require('sequelize')
 
 module.exports = router
 
@@ -14,7 +14,7 @@ const reviewNotFound = next => {
 }
 
 // /api/reviews/:productId
-// finding all reviews for that produce
+// finding all reviews for that product
 router.get('/:productId', async (req, res, next) => {
   try {
     const {productId} = req.params
