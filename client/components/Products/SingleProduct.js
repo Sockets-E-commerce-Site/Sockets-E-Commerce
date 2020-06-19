@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../../store/singleProduct'
-import Axios from 'axios'
+import {addItem, fetchCart, updateQuantity} from '../../store/cart'
 import Product from './Product'
 import ErrorPage from '../Utility/ErrorPage'
 import ReviewsForProduct from '../Reviews/ReviewsForProduct'
@@ -25,18 +25,35 @@ export class SingleProduct extends React.Component {
   componentDidMount() {
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
+    if (this.props.user.id) {
+      this.props.fetchCart(this.props.user.id)
+    }
   }
 
   async handleClick() {
     if (this.props.user.id) {
-      const {data} = await Axios.put(`/api/users/orders/cart`, {
-        productId: this.props.product.id,
-        userId: this.props.user.id
-      })
-      if (data) {
+      const productId = this.props.product.id
+      const userId = this.props.user.id
+
+      if (
+        this.props.cart &&
+        this.props.cart.products.find(product => product.id === productId)
+      ) {
+        const additionalProduct = this.props.cart.products.find(
+          product => product.id === productId
+        )
+        const quantity = additionalProduct.productOrder.productQuantity + 1
+        this.props.updateQuantity(productId, userId, quantity)
         this.setState({addedToCart: true})
       } else {
-        this.setState({success: false})
+        const shoppingList = this.props.cart.products.length
+        await this.props.addItem(productId, userId)
+
+        if (shoppingList + 1 === this.props.cart.products.length) {
+          this.setState({addedToCart: true})
+        } else {
+          this.setState({success: false})
+        }
       }
     } else {
       console.log("You're not a user!")
@@ -72,13 +89,18 @@ export class SingleProduct extends React.Component {
 const mapState = state => {
   return {
     product: state.singleProduct,
-    user: state.user
+    user: state.user,
+    cart: state.cart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchProduct: productId => dispatch(fetchProduct(productId))
+    fetchProduct: productId => dispatch(fetchProduct(productId)),
+    addItem: (productId, userId) => dispatch(addItem(productId, userId)),
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    updateQuantity: (productId, userId, productQuantity) =>
+      dispatch(updateQuantity(productId, userId, productQuantity))
   }
 }
 
