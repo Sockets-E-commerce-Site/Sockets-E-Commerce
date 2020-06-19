@@ -27,7 +27,7 @@ class OrderPage extends Component {
     const {isLoaded} = this.state
     return (
       <div>
-        {!this.props.cart.id ? (
+        {!orders.length ? (
           <ErrorPage />
         ) : isLoaded && orders.length ? (
           <div>
