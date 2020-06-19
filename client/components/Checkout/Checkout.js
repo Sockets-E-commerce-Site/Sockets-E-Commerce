@@ -1,3 +1,0 @@
-/*
-This is the parent Checkout Component which will connect with the child Checkout Form component.
-*/

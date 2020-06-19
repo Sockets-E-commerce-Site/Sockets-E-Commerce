@@ -8,7 +8,7 @@ import AllProducts from './components/Products/AllProducts'
 import OrderPage from './components/Orders/OrderPage'
 import SingleProduct from './components/Products/SingleProduct'
 import Cart from './components/Cart/Cart'
-
+import CheckoutPage from './components/Checkout/CheckoutPage'
 /**
  * COMPONENT
  */
@@ -29,6 +29,7 @@ class Routes extends Component {
         <Route path="/products" component={AllProducts} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/checkout" component={CheckoutPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
