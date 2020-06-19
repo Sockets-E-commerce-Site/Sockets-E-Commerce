@@ -29,12 +29,10 @@ class OrderPage extends Component {
       <div>
         {isLoaded && orders.length ? (
           <div>
-            {orders.map(order => {
-              return <UsersOrders key={order.id} order={order} />
-            })}
+            {orders.map(order => <UsersOrders key={order.id} order={order} />)}
           </div>
         ) : (
-          <ErrorPage />
+          <h1>nothing in order</h1>
         )}
       </div>
     )
