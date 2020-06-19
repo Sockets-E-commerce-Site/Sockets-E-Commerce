@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchCreatedReview} from '../../store/reviews'
 
+// form
 // review from for creating a review for product
 class CreateReview extends Component {
   constructor(props) {

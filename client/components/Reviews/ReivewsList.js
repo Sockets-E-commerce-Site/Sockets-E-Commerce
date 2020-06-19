@@ -1,5 +1,7 @@
 import React from 'react'
 
+// maping through reviews
+
 const ReivewsList = props => {
   const {reviews, user} = props
   return (

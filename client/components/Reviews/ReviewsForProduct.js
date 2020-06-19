@@ -6,6 +6,7 @@ import ReviewsList from './ReivewsList'
 //  all reviews for that specific product will show when you click on a product
 //  ReviewsList is the component that renders out all the reviews to the single products page
 //  bringing in ProductId from SingleProduct component in the this.props.match.params
+// test
 
 class ReviewsForProduct extends Component {
   componentDidMount() {
