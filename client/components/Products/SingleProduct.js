@@ -5,6 +5,10 @@ import Axios from 'axios'
 import Product from './Product'
 import ErrorPage from '../Utility/ErrorPage'
 
+/*
+parent SingleProduct component to render each individual product when you click from the products page. Connects to the child functional component Product.
+*/
+
 export class SingleProduct extends React.Component {
   constructor(props) {
     super(props)

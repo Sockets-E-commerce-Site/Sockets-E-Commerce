@@ -1,6 +1,9 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 
+/*
+functional child productList component connected to the allProducts parent to map through all products in our store
+*/
 const ProductList = props => {
   const {products} = props
   return (

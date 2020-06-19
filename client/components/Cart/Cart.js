@@ -5,6 +5,10 @@ import ErrorPage from '../Utility/ErrorPage'
 import ProductCard from '../Products/ProductCard'
 //will need a fetch(view), update, remove in redux
 
+/*
+Parent Cart component
+*/
+
 class Cart extends React.Component {
   componentDidMount() {
     if (this.props.user.id) {
