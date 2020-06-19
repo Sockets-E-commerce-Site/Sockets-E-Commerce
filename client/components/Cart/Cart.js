@@ -70,7 +70,7 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: userId => dispatch(fetchCart(userId)),
     deleteItem: (productId, userId) => dispatch(deleteItem(productId, userId)),
-    checkout: () => dispatch(checkout())
+    checkout: () => dispatch(checkout()),
     updateQuantity: (productId, userId, productQuantity) =>
       dispatch(updateQuantity(productId, userId, productQuantity))
   }
