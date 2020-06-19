@@ -37,7 +37,17 @@ export const deleteItem = (productId, userId) => async dispatch => {
   }
 }
 
-//update quantity of product in the cart
+
+export const checkout = () => async dispatch => {
+  try {
+    const {data: finalcart} = await axios.put('./api/cart/checkout')
+    dispatch(setCart(finalcart))
+  } catch (error) {
+    console.log('error in checkoutThunk', error)
+  }
+}
+
+//update quantity of product in cart
 export const updateQuantity = (
   productId,
   userId,
