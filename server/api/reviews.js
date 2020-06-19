@@ -1,4 +1,5 @@
 const router = require('express').Router()
+
 const {Product, Order, Review} = require('../db/models')
 const {Op, EmptyResultError} = require('sequelize')
 
@@ -18,10 +19,12 @@ router.get('/:productId', async (req, res, next) => {
   try {
     const {productId} = req.params
     const productsReviews = await Review.findAll({
+
       where: {
         productId
       }
     })
+
 
     if (!productsReviews) {
       next(reviewNotFound)
@@ -53,9 +56,12 @@ router.post('/created/review', async (req, res, next) => {
     } else {
       res.json(createdReview)
     }
+
   } catch (error) {
     next(error)
   }
 })
 
+
 // /api/review/edit
+

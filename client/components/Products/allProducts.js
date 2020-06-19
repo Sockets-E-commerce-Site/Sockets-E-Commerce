@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../../store/products'
 import ProductList from './ProductList'
-// import SearchProduct from './SearchProduct'
+
+/*
+parent AllProducts component that uses the ProductList functional component to render out all products in our store
+*/
 
 class AllProducts extends Component {
   constructor() {

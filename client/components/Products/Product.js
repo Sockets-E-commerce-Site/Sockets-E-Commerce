@@ -1,5 +1,9 @@
 import React from 'react'
 
+/*
+functional child Product component connected to the parent SingleProduct component which lists all details related to each individual product
+*/
+
 export default function Product(props) {
   const {
     id,

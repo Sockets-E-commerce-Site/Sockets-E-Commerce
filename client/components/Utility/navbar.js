@@ -5,6 +5,10 @@ import {NavLink} from 'react-router-dom'
 import SearchProduct from './SearchProduct'
 import {logout} from '../../store'
 
+/*
+component rendering the top mavbar and linking to all parts of our site. Also connects to the search bar component.
+*/
+
 const Navbar = ({handleClick, isLoggedIn}) => (
   <nav className="flex items-center justify-between flex-wrap bg-indigo-900 p-6">
     <div className="flex items-center flex-shrink-0 text-white mr-6">

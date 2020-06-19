@@ -9,9 +9,11 @@ const UsersOrders = props => {
     <div>
       {products.map(product => (
         <div key={product.id}>
-          <h1>{product.title}</h1>
-          <h1>{product.price}</h1>
-          <h1>{product.productOrder.productQuantity}</h1>
+          <h4>{product.title}</h4>
+          <h4>{product.price}</h4>
+          <img src={product.photo} />
+          <h4>{product.description}</h4>
+          <h4>{product.productOrder.productQuantity}</h4>
         </div>
       ))}
     </div>

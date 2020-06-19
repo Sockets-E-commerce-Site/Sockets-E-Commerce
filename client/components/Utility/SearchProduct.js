@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../../store/products'
+/*
+searchProduct component which is rendering in our navbar to allow users to search for a product our store holds.
+*/
 
 class SearchForGame extends Component {
   constructor() {

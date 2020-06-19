@@ -1,5 +1,5 @@
 /*
-This is the functional single product card/component that is rendering in cart
+This is the child functional single product card/component that is rendering in the parent Cart component
 */
 
 import React from 'react'
