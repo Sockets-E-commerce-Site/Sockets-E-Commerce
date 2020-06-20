@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
 const {Op} = require('sequelize')
+const adminAuthentication = require('./admin')
+// adminAuthentication going ot put our middileware for eddiitng and deleting products on page
 
 module.exports = router
 

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {User, Product, Order} = require('../db/models')
 const {Op} = require('sequelize')
+const {session} = require('passport')
 
 module.exports = router
 
@@ -47,7 +48,6 @@ router.get('/orders/cart/:userId', async (req, res, next) => {
       },
       include: Product
     })
-
     if (!usersCart) {
       next(userNotFound)
     } else {
@@ -58,20 +58,35 @@ router.get('/orders/cart/:userId', async (req, res, next) => {
   }
 })
 
+// route for getting the guest cart
+// when you go to ad to cart in navbar
+router.get('/orders/cart/guest/session', async (req, res, next) => {
+  try {
+    const {cart} = req.session
+    res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/orders/cart', async (req, res, next) => {
   try {
     if (!req.user) {
+      // if no cart add one with productId
       if (!req.session.cart) {
         const {productId} = req.body
         req.session.cart = [{productId}]
         res.sendStatus(204)
-        console.log(JSON.stringify(req.session.cart))
       } else {
+        // if already a cart then push new ones added in the the session.cart
         const {productId} = req.body
         req.session.cart.push({productId})
-        res.send('completed')
+        console.log(JSON.stringify(req.session.cart))
+        res.send('product added to cart')
       }
     } else {
+      // if there is a user
+      console.log(req.user)
       const userId = req.body.userId
       const [newOrder, created] = await Order.findOrCreate({
         where: {
