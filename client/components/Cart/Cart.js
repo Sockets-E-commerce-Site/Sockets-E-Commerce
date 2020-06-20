@@ -4,6 +4,7 @@ import {fetchCart, deleteItem, updateQuantity, checkout} from '../../store/cart'
 import ErrorPage from '../Utility/ErrorPage'
 import ProductCard from '../Products/ProductCard'
 import {NavLink} from 'react-router-dom'
+
 //import {check} from 'prettier'
 //will need a fetch(view), update, remove in redux
 
@@ -52,7 +53,6 @@ class Cart extends React.Component {
         )}
         {this.props.cart.id && this.props.cart.products.length > 0 ? (
           <NavLink to="/checkout" type="button" onClick={this.checkout}>
-            {' '}
             Checkout!
           </NavLink>
         ) : (
