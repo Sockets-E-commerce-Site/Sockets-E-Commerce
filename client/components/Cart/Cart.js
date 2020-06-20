@@ -19,9 +19,7 @@ class Cart extends React.Component {
     this.checkout = this.checkout.bind(this)
   }
   componentDidMount() {
-    if (this.props.user.id) {
-      this.props.fetchCart()
-    }
+    this.props.fetchCart()
   }
 
   checkout = () => {
@@ -31,7 +29,7 @@ class Cart extends React.Component {
   render() {
     return (
       <div>
-        {!this.props.cart.id ? (
+        {!this.props.cart.products ? (
           <ErrorPage />
         ) : this.props.cart.products.length > 0 ? (
           this.props.cart.products.map(product => {
