@@ -67,6 +67,12 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
+  // use as testing for backend
+  // app.get('/testing', (req, res, next) => {
+  //   req.session.cart = 100
+  //   res.end()
+  // })
+
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
 

@@ -56,7 +56,9 @@ export class SingleProduct extends React.Component {
         }
       }
     } else {
-      console.log("You're not a user!")
+      await Axios.put(`/api/users/orders/cart`, {
+        productId: this.props.product.id
+      })
     }
   }
 

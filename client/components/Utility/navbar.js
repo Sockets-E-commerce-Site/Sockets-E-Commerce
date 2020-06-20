@@ -78,6 +78,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               >
                 Products
               </a>
+              <a
+                href="#responsive-header"
+                className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white mr-4"
+              >
+                <NavLink to="/users/orders/cart">Cart</NavLink>
+              </a>
+              <a
+                href="#responsive-header"
+                className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white"
+              >
+                <NavLink to="/orders">Orders</NavLink>
+              </a>
             </NavLink>
           </div>
         </div>
