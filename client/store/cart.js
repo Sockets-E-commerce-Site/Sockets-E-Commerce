@@ -12,9 +12,9 @@ export const setCart = cart => ({
 //THUNKS
 
 //set cart to store
-export const fetchCart = userId => async dispatch => {
+export const fetchCart = () => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/users/orders/cart/${userId}`)
+    const {data} = await axios.get(`/api/users/orders/cart/`)
     dispatch(setCart(data))
   } catch (error) {
     console.log('error in fetchCart', error)
@@ -22,11 +22,10 @@ export const fetchCart = userId => async dispatch => {
 }
 
 //remove an item from the cart
-export const deleteItem = (productId, userId) => async dispatch => {
+export const deleteItem = productId => async dispatch => {
   try {
     const {data: updatedCart} = await axios.delete(`/api/users/orders/cart`, {
       data: {
-        userId,
         productId
       }
     })
@@ -38,11 +37,10 @@ export const deleteItem = (productId, userId) => async dispatch => {
 }
 
 //add an item to the cart
-export const addItem = (productId, userId) => async dispatch => {
+export const addItem = productId => async dispatch => {
   try {
     const {data: updatedCart} = await axios.put(`/api/users/orders/cart`, {
-      productId,
-      userId
+      productId
     })
     dispatch(setCart(updatedCart))
   } catch (error) {
@@ -62,12 +60,10 @@ export const checkout = () => async dispatch => {
 //update quantity of product in cart
 export const updateQuantity = (
   productId,
-  userId,
   productQuantity
 ) => async dispatch => {
   try {
     const {data: updatedCart} = await axios.put('/api/cart/edit', {
-      userId,
       productId,
       productQuantity
     })

@@ -22,14 +22,11 @@ export const fetchReviewsForProduct = productId => async dispatch => {
 }
 export const fetchCreatedReview = reviewInfo => async dispatch => {
   try {
-    console.log('1')
     const {data: review} = await axios.post(
       `/api/reviews/created/review`,
       reviewInfo
     )
-    console.log('2')
     dispatch(createdReview(review))
-    console.log('3')
   } catch (error) {
     console.log('error in reivews thunk', error)
   }

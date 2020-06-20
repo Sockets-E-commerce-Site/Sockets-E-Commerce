@@ -6,7 +6,6 @@ import React from 'react'
 
 export default function ProductCard(props) {
   const {title, price, id} = props.product
-  const {userId} = props
   const {invQuantity} = props.product
 
   let quantity = props.product.productOrder.productQuantity
@@ -22,7 +21,7 @@ export default function ProductCard(props) {
       <h1>Title: {title}</h1>
       <h1>Price: {price}</h1>
       <h1>Quantity: {quantity}</h1>
-      <button type="button" onClick={() => props.deleteItem(id, userId)}>
+      <button type="button" onClick={() => props.deleteItem(id)}>
         Remove from Cart
       </button>
       <br />
@@ -31,7 +30,7 @@ export default function ProductCard(props) {
       <label htmlFor="quantity">Set Quantity: </label>
       <select
         name="quantity"
-        onChange={e => props.updateQuantity(id, userId, e.target.value)}
+        onChange={e => props.updateQuantity(id, e.target.value)}
       >
         {selectBar}
       </select>
@@ -39,7 +38,7 @@ export default function ProductCard(props) {
         type="button"
         onClick={() => {
           quantity--
-          return props.updateQuantity(id, userId, quantity)
+          return props.updateQuantity(id, quantity)
         }}
       >
         -
@@ -48,7 +47,7 @@ export default function ProductCard(props) {
         type="button"
         onClick={() => {
           quantity++
-          return props.updateQuantity(id, userId, quantity)
+          return props.updateQuantity(id, quantity)
         }}
       >
         +

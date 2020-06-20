@@ -22,19 +22,16 @@ class CreateReview extends Component {
     })
   }
 
-  // getting UserID from the user State
   // ProductID from SingleProduct component from this.props.match.params
   // maybe check form number validations?
   handleSubmit(e) {
     e.preventDefault()
     const {title, content, rating} = this.state
-    const userId = this.props.user
     const {productId} = this.props
     this.props.createdReview({
       title,
       content,
       rating,
-      userId,
       productId
     })
     this.setState({
@@ -106,7 +103,7 @@ class CreateReview extends Component {
                   type="submit"
                   className="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
                 >
-                  Post Reivew
+                  Post Review
                 </button>
               </div>
             </div>

@@ -19,12 +19,10 @@ router.get('/:productId', async (req, res, next) => {
   try {
     const {productId} = req.params
     const productsReviews = await Review.findAll({
-
       where: {
         productId
       }
     })
-
 
     if (!productsReviews) {
       next(reviewNotFound)
@@ -40,7 +38,8 @@ router.get('/:productId', async (req, res, next) => {
 // route for creating a review
 router.post('/created/review', async (req, res, next) => {
   try {
-    const {rating, title, userId, productId, content} = req.body
+    const {rating, title, productId, content} = req.body
+    const userId = req.user.id
     const createdReview = await Review.create({
       content,
       rating,
@@ -56,12 +55,9 @@ router.post('/created/review', async (req, res, next) => {
     } else {
       res.json(createdReview)
     }
-
   } catch (error) {
     next(error)
   }
 })
 
-
 // /api/review/edit
-

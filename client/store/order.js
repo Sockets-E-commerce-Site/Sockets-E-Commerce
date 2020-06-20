@@ -12,9 +12,9 @@ export const getOrders = orderInfo => ({
 //THUNKS
 
 //fetch order
-export const fetchOrders = userId => async dispatch => {
+export const fetchOrders = () => async dispatch => {
   try {
-    const {data: orders} = await axios.get(`/api/orders/${userId}`)
+    const {data: orders} = await axios.get(`/api/orders/allorders`)
     dispatch(getOrders(orders))
   } catch (error) {
     console.log('error in fetchOrders thunk', error)
