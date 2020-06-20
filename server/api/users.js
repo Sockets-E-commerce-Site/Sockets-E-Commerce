@@ -31,19 +31,21 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const id = req.params.id
-    const user = await User.findByPk(id)
-    res.status(200).send(user)
+    // const id = req.params.id
+    // const user = await User.findByPk(id)
+    // res.status(200).send(user)
+    res.json(req.user)
   } catch (error) {
     next(error)
   }
 })
 
-router.get('/orders/cart/:userId', async (req, res, next) => {
+router.get('/orders/cart', async (req, res, next) => {
   try {
+    const userId = req.user.id
     const usersCart = await Order.findOne({
       where: {
-        userId: req.params.userId,
+        userId,
         status: 'in cart'
       },
       include: Product
@@ -87,7 +89,7 @@ router.put('/orders/cart', async (req, res, next) => {
     } else {
       // if there is a user
       console.log(req.user)
-      const userId = req.body.userId
+      const userId = req.user.id
       const [newOrder, created] = await Order.findOrCreate({
         where: {
           userId,
@@ -113,7 +115,7 @@ router.put('/orders/cart', async (req, res, next) => {
 
 router.delete('/orders/cart', async (req, res, next) => {
   try {
-    const userId = req.body.userId
+    const userId = req.user.id
     const cart = await Order.findOne({
       where: {
         userId,

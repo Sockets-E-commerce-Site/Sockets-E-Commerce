@@ -20,8 +20,7 @@ class Cart extends React.Component {
   }
   componentDidMount() {
     if (this.props.user.id) {
-      const userId = this.props.user.id
-      this.props.fetchCart(userId)
+      this.props.fetchCart()
     }
   }
 
@@ -39,7 +38,6 @@ class Cart extends React.Component {
             return (
               <ProductCard
                 product={product}
-                userId={this.props.user.id}
                 deleteItem={this.props.deleteItem}
                 updateQuantity={this.props.updateQuantity}
                 key={product.id}
@@ -72,11 +70,11 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: userId => dispatch(fetchCart(userId)),
-    deleteItem: (productId, userId) => dispatch(deleteItem(productId, userId)),
+    fetchCart: () => dispatch(fetchCart()),
+    deleteItem: productId => dispatch(deleteItem(productId)),
     checkout: () => dispatch(checkout()),
-    updateQuantity: (productId, userId, productQuantity) =>
-      dispatch(updateQuantity(productId, userId, productQuantity))
+    updateQuantity: (productId, productQuantity) =>
+      dispatch(updateQuantity(productId, productQuantity))
   }
 }
 

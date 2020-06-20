@@ -6,7 +6,8 @@ module.exports = router
 // alter product quantity in cart
 router.put('/edit', async (req, res, next) => {
   try {
-    const {userId, productId, productQuantity} = req.body
+    const {productId, productQuantity} = req.body
+    const userId = req.user.id
     const cart = await Order.findOne({
       where: {
         userId,

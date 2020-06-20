@@ -6,6 +6,7 @@ import Product from './Product'
 import ErrorPage from '../Utility/ErrorPage'
 import ReviewsForProduct from '../Reviews/ReviewsForProduct'
 import CreateReview from '../Reviews/CreateReview'
+import Axios from 'axios'
 
 /*
 parent SingleProduct component to render each individual product when you click from the products page. Connects to the child functional component Product.
@@ -33,7 +34,6 @@ export class SingleProduct extends React.Component {
   async handleClick() {
     if (this.props.user.id) {
       const productId = this.props.product.id
-      const userId = this.props.user.id
 
       if (
         this.props.cart &&
@@ -43,11 +43,11 @@ export class SingleProduct extends React.Component {
           product => product.id === productId
         )
         const quantity = additionalProduct.productOrder.productQuantity + 1
-        this.props.updateQuantity(productId, userId, quantity)
+        this.props.updateQuantity(productId, quantity)
         this.setState({addedToCart: true})
       } else {
         const shoppingList = this.props.cart.products.length
-        await this.props.addItem(productId, userId)
+        await this.props.addItem(productId)
 
         if (shoppingList + 1 === this.props.cart.products.length) {
           this.setState({addedToCart: true})
@@ -99,10 +99,10 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchProduct: productId => dispatch(fetchProduct(productId)),
-    addItem: (productId, userId) => dispatch(addItem(productId, userId)),
-    fetchCart: userId => dispatch(fetchCart(userId)),
-    updateQuantity: (productId, userId, productQuantity) =>
-      dispatch(updateQuantity(productId, userId, productQuantity))
+    addItem: productId => dispatch(addItem(productId)),
+    fetchCart: () => dispatch(fetchCart()),
+    updateQuantity: (productId, productQuantity) =>
+      dispatch(updateQuantity(productId, productQuantity))
   }
 }
 

@@ -5,7 +5,6 @@ import ErrorPage from '../Utility/ErrorPage'
 import UsersOrders from './UsersOrders'
 
 // shows all the orders for that User
-// pass in the UserId from state to the orders link in navbar
 class OrderPage extends Component {
   constructor() {
     super()
@@ -15,8 +14,7 @@ class OrderPage extends Component {
   }
 
   componentDidMount() {
-    const userId = this.props.user
-    this.props.loadOrders(userId)
+    this.props.loadOrders()
     this.setState({
       isLoaded: true
     })
@@ -47,7 +45,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  loadOrders: userId => dispatch(fetchOrders(userId))
+  loadOrders: () => dispatch(fetchOrders())
 })
 
 export default connect(mapState, mapDispatch)(OrderPage)

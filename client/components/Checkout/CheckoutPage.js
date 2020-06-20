@@ -15,8 +15,7 @@ class CheckoutPage extends React.Component {
   }
   componentDidMount() {
     if (this.props.user.id) {
-      const userId = this.props.user.id
-      this.props.fetchCart(userId)
+      this.props.fetchCart()
     }
   }
 
@@ -29,13 +28,7 @@ class CheckoutPage extends React.Component {
       <div>
         <h1>Checkout</h1>
         {this.props.cart.products.map(product => {
-          return (
-            <CheckoutProduct
-              product={product}
-              userId={this.props.user.id}
-              key={product.id}
-            />
-          )
+          return <CheckoutProduct product={product} key={product.id} />
         })}
       </div>
     )
@@ -51,7 +44,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: userId => dispatch(fetchCart(userId)),
+    fetchCart: () => dispatch(fetchCart()),
     checkout: () => dispatch(checkout())
   }
 }
