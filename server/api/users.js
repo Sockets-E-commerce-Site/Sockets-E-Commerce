@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {User, Product, Order} = require('../db/models')
 const {Op} = require('sequelize')
 const {session} = require('passport')
+const {reset} = require('nodemon')
 
 module.exports = router
 
@@ -29,30 +30,20 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
-  try {
-    // const id = req.params.id
-    // const user = await User.findByPk(id)
-    // res.status(200).send(user)
-    res.json(req.user)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.get('/orders/cart', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    const usersCart = await Order.findOne({
-      where: {
-        userId,
-        status: 'in cart'
-      },
-      include: Product
-    })
-    if (!usersCart) {
-      next(userNotFound)
+    if (!req.user) {
+      res.json(req.session.cart)
     } else {
+      const userId = req.user.id
+      const usersCart = await Order.findOne({
+        where: {
+          userId,
+          status: 'in cart'
+        },
+        include: Product
+      })
+
       res.json(usersCart)
     }
   } catch (error) {
@@ -60,35 +51,45 @@ router.get('/orders/cart', async (req, res, next) => {
   }
 })
 
-// route for getting the guest cart
-// when you go to ad to cart in navbar
-router.get('/orders/cart/guest/session', async (req, res, next) => {
-  try {
-    const {cart} = req.session
-    res.json(cart)
-  } catch (err) {
-    next(err)
-  }
-})
-
+//add items to cart as either user or guest
 router.put('/orders/cart', async (req, res, next) => {
   try {
     if (!req.user) {
-      // if no cart add one with productId
+      //create a cart if there is no cart in session already
       if (!req.session.cart) {
-        const {productId} = req.body
-        req.session.cart = [{productId}]
-        res.sendStatus(204)
-      } else {
-        // if already a cart then push new ones added in the the session.cart
-        const {productId} = req.body
-        req.session.cart.push({productId})
-        console.log(JSON.stringify(req.session.cart))
-        res.send('product added to cart')
+        req.session.cart = {}
+        req.session.cart.products = []
       }
+
+      //find the product in our catalog
+      const product = await Product.findByPk(req.body.productId)
+
+      //see if product is already in the guest cart
+      const foundProduct = req.session.cart.products.find(
+        item => item.id === product.id
+      )
+
+      //if product is already in cart, increase quantity by 1,
+      // otherwise, add the product to the cart
+      if (foundProduct) {
+        if (foundProduct.productOrder.productQuantity < product.invQuantity) {
+          foundProduct.productOrder.productQuantity++
+        }
+        console.log(JSON.stringify(req.session.cart.products))
+      } else {
+        //add product to the cart
+        req.session.cart.products.push(product)
+        const updatedProduct = req.session.cart.products.find(
+          item => item.id === product.id
+        )
+
+        //add productOrder property to the cart product
+        //to keep track of quantity in cart
+        updatedProduct.dataValues.productOrder = {productQuantity: 1}
+      }
+      res.json(req.session.cart)
     } else {
       // if there is a user
-      console.log(req.user)
       const userId = req.user.id
       const [newOrder, created] = await Order.findOrCreate({
         where: {
@@ -106,6 +107,7 @@ router.put('/orders/cart', async (req, res, next) => {
         },
         include: Product
       })
+      console.log(cart)
       res.json(cart)
     }
   } catch (error) {
@@ -113,6 +115,7 @@ router.put('/orders/cart', async (req, res, next) => {
   }
 })
 
+//remove an item from the cart
 router.delete('/orders/cart', async (req, res, next) => {
   try {
     const userId = req.user.id

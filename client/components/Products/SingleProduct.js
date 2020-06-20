@@ -32,9 +32,8 @@ export class SingleProduct extends React.Component {
   }
 
   async handleClick() {
+    const productId = this.props.product.id
     if (this.props.user.id) {
-      const productId = this.props.product.id
-
       if (
         this.props.cart &&
         this.props.cart.products.find(product => product.id === productId)
@@ -56,9 +55,7 @@ export class SingleProduct extends React.Component {
         }
       }
     } else {
-      await Axios.put(`/api/users/orders/cart`, {
-        productId: this.props.product.id
-      })
+      this.props.addItem(productId)
     }
   }
 
