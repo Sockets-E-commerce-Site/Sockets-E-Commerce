@@ -1,11 +1,19 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {deletedProducts} from '../../store/products'
+import alert from '../Utility/alert'
 
 /*
 functional child productList component connected to the allProducts parent to map through all products in our store
 */
 const ProductList = props => {
-  const {products} = props
+  const {products, user} = props
+
+  function handleDelete(productId) {
+    props.deletedProduct(productId)
+  }
+
   return (
     <div className="flex flex-row flex-wrap">
       {products.map(product => (
@@ -21,10 +29,28 @@ const ProductList = props => {
             <img className="bg-auto " src={product.photo} />
           </NavLink>
           <h4>{product.description}</h4>
+          {user.isAdmin ? (
+            <button
+              className="bg-red-500 hover:bg-red-700  text-white font-bold py-2 px-4 rounded"
+              type="button"
+              onClick={() => {
+                if (
+                  window.confirm('Are you sure you wish to delete this item?')
+                )
+                  handleDelete(product.id)
+              }}
+            >
+              Delete
+            </button>
+          ) : null}
         </div>
       ))}
     </div>
   )
 }
 
-export default ProductList
+const mapDispatch = dispatch => ({
+  deletedProduct: productId => dispatch(deletedProducts(productId))
+})
+
+export default connect(null, mapDispatch)(ProductList)

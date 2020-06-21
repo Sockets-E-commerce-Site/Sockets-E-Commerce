@@ -84,11 +84,9 @@ router.put('/edit', async (req, res, next) => {
       )
       res.json('review has been updated')
     } else {
-      res
-        .status(404)
-        .send({
-          error: {status: 404, message: 'create a account to review a product'}
-        })
+      res.status(404).send({
+        error: {status: 404, message: 'create a account to review a product'}
+      })
     }
   } catch (error) {
     next(error)

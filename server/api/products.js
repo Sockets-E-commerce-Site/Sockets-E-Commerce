@@ -69,10 +69,10 @@ router.post('/', adminAuthentication, async (req, res, next) => {
 
 router.delete('/:productId', adminAuthentication, async (req, res, next) => {
   try {
-    const {productId} = req.params
+    const id = req.params.productId
     await Product.destroy({
       where: {
-        productId
+        id
       }
     })
     res.json('Product removed from list')
