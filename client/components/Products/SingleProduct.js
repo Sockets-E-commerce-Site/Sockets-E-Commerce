@@ -26,38 +26,13 @@ export class SingleProduct extends React.Component {
   componentDidMount() {
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
-    if (this.props.user.id) {
-      this.props.fetchCart(this.props.user.id)
-    }
+    this.props.fetchCart()
+    console.log(this.props.cart)
   }
 
   async handleClick() {
-    const productId = this.props.product.id
-    if (this.props.user.id) {
-      if (
-        this.props.cart &&
-        this.props.cart.products.find(product => product.id === productId)
-      ) {
-        const additionalProduct = this.props.cart.products.find(
-          product => product.id === productId
-        )
-        const quantity = additionalProduct.productOrder.productQuantity + 1
-        this.props.updateQuantity(productId, quantity)
-        this.setState({addedToCart: true})
-      } else {
-        const shoppingList = this.props.cart.products.length
-        await this.props.addItem(productId)
-
-        if (shoppingList + 1 === this.props.cart.products.length) {
-          this.setState({addedToCart: true})
-        } else {
-          this.setState({success: false})
-        }
-      }
-    } else {
-      this.props.addItem(productId)
-      this.setState({addedToCart: true})
-    }
+    await this.props.addItem(this.props.product.id)
+    this.setState({addedToCart: true})
   }
 
   render() {
