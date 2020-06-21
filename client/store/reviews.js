@@ -31,6 +31,14 @@ export const fetchCreatedReview = reviewInfo => async dispatch => {
     console.log('error in reivews thunk', error)
   }
 }
+export const fetchUsersUpdatedReview = review => async dispatch => {
+  try {
+    const {data: udatedReview} = await axios.post(`/api/reviews/edit`, review)
+    dispatch(setReviews(udatedReview))
+  } catch (error) {
+    console.log('error in reivews thunk', error)
+  }
+}
 
 const reivews = (state = [], action) => {
   switch (action.type) {

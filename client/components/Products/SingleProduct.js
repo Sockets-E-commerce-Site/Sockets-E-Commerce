@@ -33,6 +33,7 @@ export class SingleProduct extends React.Component {
 
   async handleClick() {
     const productId = this.props.product.id
+    console.log(productId)
     if (this.props.user.id) {
       if (
         this.props.cart &&
