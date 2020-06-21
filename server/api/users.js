@@ -75,7 +75,6 @@ router.put('/orders/cart', async (req, res, next) => {
         if (foundProduct.productOrder.productQuantity < product.invQuantity) {
           foundProduct.productOrder.productQuantity++
         }
-        console.log(JSON.stringify(req.session.cart.products))
       } else {
         //add product to the cart
         req.session.cart.products.push(product)
@@ -107,7 +106,6 @@ router.put('/orders/cart', async (req, res, next) => {
         },
         include: Product
       })
-      console.log(cart)
       res.json(cart)
     }
   } catch (error) {

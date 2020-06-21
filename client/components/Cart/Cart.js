@@ -29,7 +29,7 @@ class Cart extends React.Component {
   render() {
     return (
       <div>
-        {!this.props.cart.products ? (
+        {!this.props.cart ? (
           <ErrorPage />
         ) : this.props.cart.products.length > 0 ? (
           this.props.cart.products.map(product => {
