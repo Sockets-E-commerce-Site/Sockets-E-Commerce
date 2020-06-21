@@ -36,7 +36,7 @@ router.get('/orders/cart', async (req, res, next) => {
       res.json(req.session.cart)
     } else {
       const userId = req.user.id
-      const usersCart = await Order.findOne({
+      const usersCart = await Order.findOrCreate({
         where: {
           userId,
           status: 'in cart'
