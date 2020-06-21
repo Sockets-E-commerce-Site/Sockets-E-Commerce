@@ -8,5 +8,10 @@ module.exports = async function(req, res, next) {
   })
   if (!user.isAdmin) {
     res.status(403).send({error: {status: 403, message: 'Access denied.'}})
+  } else {
+    next()
+  }
+  if (!req.user) {
+    res.status(403).send({error: {status: 403, message: 'Access denied.'}})
   }
 }
