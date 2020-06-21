@@ -2,9 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, checkout} from '../../store/cart'
 import CheckoutProduct from './CheckoutProduct'
+import {NavLink} from 'react-router-dom'
 
 /*
-Child: CheckoutProduct
+Children: CheckoutProduct
 Description: This is the parent CheckoutPage which will grab the final cart for that user and then will calculate final price and use Stripe API for final checkout.
 */
 
@@ -30,6 +31,9 @@ class CheckoutPage extends React.Component {
         {this.props.cart.products.map(product => {
           return <CheckoutProduct product={product} key={product.id} />
         })}
+        <NavLink to="/confirmation" type="button" onClick={this.checkout}>
+          Submit Order
+        </NavLink>
       </div>
     )
   }
