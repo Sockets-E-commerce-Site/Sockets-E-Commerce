@@ -56,6 +56,7 @@ export class SingleProduct extends React.Component {
       }
     } else {
       this.props.addItem(productId)
+      this.setState({addedToCart: true})
     }
   }
 
