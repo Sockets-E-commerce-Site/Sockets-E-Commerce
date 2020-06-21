@@ -36,13 +36,25 @@ router.get('/orders/cart', async (req, res, next) => {
       res.json(req.session.cart)
     } else {
       const userId = req.user.id
-      const usersCart = await Order.findOrCreate({
+      const [usersCart, created] = await Order.findOrCreate({
         where: {
           userId,
           status: 'in cart'
         },
         include: Product
       })
+
+      if (created) {
+        const emptyCart = await Order.findOne({
+          where: {
+            userId,
+            status: 'in cart'
+          },
+          include: Product
+        })
+        res.json(emptyCart)
+        return
+      }
 
       res.json(usersCart)
     }
@@ -87,27 +99,27 @@ router.put('/orders/cart', async (req, res, next) => {
         updatedProduct.dataValues.productOrder = {productQuantity: 1}
       }
       res.json(req.session.cart)
-    } else {
-      // if there is a user
-      const userId = req.user.id
-      const [newOrder, created] = await Order.findOrCreate({
-        where: {
-          userId,
-          status: 'in cart'
-        }
-      })
-      const product = await Product.findByPk(req.body.productId)
-
-      await newOrder.addProduct(product)
-
-      const cart = await Order.findOne({
-        where: {
-          id: newOrder.id
-        },
-        include: Product
-      })
-      res.json(cart)
+      return
     }
+    // if there is a user
+    const userId = req.user.id
+    const [newOrder, created] = await Order.findOrCreate({
+      where: {
+        userId,
+        status: 'in cart'
+      }
+    })
+    const product = await Product.findByPk(req.body.productId)
+
+    await newOrder.addProduct(product)
+
+    const cart = await Order.findOne({
+      where: {
+        id: newOrder.id
+      },
+      include: Product
+    })
+    res.json(cart)
   } catch (error) {
     next(error)
   }

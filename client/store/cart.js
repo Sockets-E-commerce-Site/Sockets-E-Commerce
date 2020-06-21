@@ -74,7 +74,7 @@ export const updateQuantity = (
 }
 
 //REDUCER
-const cart = (state = {}, action) => {
+const cart = (state = {products: []}, action) => {
   switch (action.type) {
     case SET_CART:
       return action.cart
