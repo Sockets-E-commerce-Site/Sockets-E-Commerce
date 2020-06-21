@@ -6,7 +6,6 @@ import Product from './Product'
 import ErrorPage from '../Utility/ErrorPage'
 import ReviewsForProduct from '../Reviews/ReviewsForProduct'
 import CreateReview from '../Reviews/CreateReview'
-import Axios from 'axios'
 
 /*
 parent SingleProduct component to render each individual product when you click from the products page. Connects to the child functional component Product.
@@ -26,38 +25,12 @@ export class SingleProduct extends React.Component {
   componentDidMount() {
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
-    if (this.props.user.id) {
-      this.props.fetchCart(this.props.user.id)
-    }
+    this.props.fetchCart()
   }
 
-  async handleClick() {
-    const productId = this.props.product.id
-    console.log(productId)
-    if (this.props.user.id) {
-      if (
-        this.props.cart &&
-        this.props.cart.products.find(product => product.id === productId)
-      ) {
-        const additionalProduct = this.props.cart.products.find(
-          product => product.id === productId
-        )
-        const quantity = additionalProduct.productOrder.productQuantity + 1
-        this.props.updateQuantity(productId, quantity)
-        this.setState({addedToCart: true})
-      } else {
-        const shoppingList = this.props.cart.products.length
-        await this.props.addItem(productId)
-
-        if (shoppingList + 1 === this.props.cart.products.length) {
-          this.setState({addedToCart: true})
-        } else {
-          this.setState({success: false})
-        }
-      }
-    } else {
-      this.props.addItem(productId)
-    }
+  handleClick() {
+    this.props.addItem(this.props.product.id)
+    this.setState({addedToCart: true})
   }
 
   render() {

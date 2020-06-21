@@ -14,24 +14,16 @@ also added the checkout button for a user to checkout
 */
 
 class Cart extends React.Component {
-  constructor() {
-    super()
-    this.checkout = this.checkout.bind(this)
-  }
   componentDidMount() {
     this.props.fetchCart()
-  }
-
-  checkout = () => {
-    this.props.checkout()
   }
 
   render() {
     return (
       <div>
-        {!this.props.cart.products ? (
+        {!this.props.cart ? (
           <ErrorPage />
-        ) : this.props.cart.products.length > 0 ? (
+        ) : this.props.cart.products.length ? (
           this.props.cart.products.map(product => {
             return (
               <ProductCard
@@ -48,7 +40,7 @@ class Cart extends React.Component {
           </div>
         )}
         {this.props.cart.id && this.props.cart.products.length > 0 ? (
-          <NavLink to="/checkout" type="button" onClick={this.checkout}>
+          <NavLink to="/checkout" type="button">
             Checkout!
           </NavLink>
         ) : (
@@ -70,7 +62,6 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCart()),
     deleteItem: productId => dispatch(deleteItem(productId)),
-    checkout: () => dispatch(checkout()),
     updateQuantity: (productId, productQuantity) =>
       dispatch(updateQuantity(productId, productQuantity))
   }
