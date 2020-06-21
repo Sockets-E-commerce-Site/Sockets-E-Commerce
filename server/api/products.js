@@ -45,3 +45,38 @@ router.get('/:productId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', adminAuthentication, async (req, res, next) => {
+  try {
+    const {title, description, invQuantity, photo, category, price} = req.body
+    const addProduct = await Product.create({
+      title,
+      description,
+      invQuantity,
+      photo,
+      category,
+      price
+    })
+    if (!addProduct) {
+      next(productNotFound)
+    } else {
+      res.json(addProduct)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:productId', adminAuthentication, async (req, res, next) => {
+  try {
+    const id = req.params.productId
+    await Product.destroy({
+      where: {
+        id
+      }
+    })
+    res.json('Product removed from list')
+  } catch (error) {
+    next(error)
+  }
+})

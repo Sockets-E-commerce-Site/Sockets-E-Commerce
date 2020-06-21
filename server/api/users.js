@@ -1,8 +1,7 @@
 const router = require('express').Router()
 const {User, Product, Order} = require('../db/models')
 const {Op} = require('sequelize')
-const {session} = require('passport')
-const {reset} = require('nodemon')
+const adminAuthentication = require('./admin')
 
 module.exports = router
 
@@ -16,7 +15,7 @@ const userNotFound = next => {
   next(error)
 }
 
-router.get('/', async (req, res, next) => {
+router.get('/', adminAuthentication, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -33,7 +32,11 @@ router.get('/', async (req, res, next) => {
 router.get('/orders/cart', async (req, res, next) => {
   try {
     if (!req.user) {
+      if (!req.session.cart) {
+        req.session.cart = {products: []}
+      }
       res.json(req.session.cart)
+      return
     } else {
       const userId = req.user.id
       const [usersCart, created] = await Order.findOrCreate({
@@ -43,6 +46,7 @@ router.get('/orders/cart', async (req, res, next) => {
         },
         include: Product
       })
+
 
       if (created) {
         const emptyCart = await Order.findOne({
@@ -55,7 +59,6 @@ router.get('/orders/cart', async (req, res, next) => {
         res.json(emptyCart)
         return
       }
-
       res.json(usersCart)
     }
   } catch (error) {
@@ -72,10 +75,8 @@ router.put('/orders/cart', async (req, res, next) => {
         req.session.cart = {}
         req.session.cart.products = []
       }
-
       //find the product in our catalog
       const product = await Product.findByPk(req.body.productId)
-
       //see if product is already in the guest cart
       const foundProduct = req.session.cart.products.find(
         item => item.id === product.id
@@ -128,6 +129,18 @@ router.put('/orders/cart', async (req, res, next) => {
 //remove an item from the cart
 router.delete('/orders/cart', async (req, res, next) => {
   try {
+    if (!req.user) {
+      const products = req.session.cart.products
+      const removedProduct = products.find(
+        product => product.id === req.body.productId
+      )
+
+      const splicePoint = products.indexOf(removedProduct)
+      products.splice(splicePoint, 1)
+
+      res.json(req.session.cart)
+      return
+    }
     const userId = req.user.id
     const cart = await Order.findOne({
       where: {
@@ -154,3 +167,20 @@ router.delete('/orders/cart', async (req, res, next) => {
     next(error)
   }
 })
+
+//change apssword
+// router.put('/newPassword', async(req, res, next) => {
+//   try {
+//       const userId = req.user.id
+//       // const {formerPassWord, newPassWord} = req.body
+//       const [created, afftectUser] = await User.udpate(req.body, {
+//         where: {
+//           userId
+//         },
+//         returning: true,
+//       })
+//       res.json(afftectUser)
+//   } catch (error) {
+//     next(error)
+//   }
+// })

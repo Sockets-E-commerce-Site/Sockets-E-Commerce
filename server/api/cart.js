@@ -7,6 +7,17 @@ module.exports = router
 router.put('/edit', async (req, res, next) => {
   try {
     const {productId, productQuantity} = req.body
+
+    if (!req.user) {
+      const foundProduct = req.session.cart.products.find(
+        product => product.id === productId
+      )
+
+      foundProduct.productOrder.productQuantity = productQuantity
+      res.json(req.session.cart)
+      return
+    }
+
     const userId = req.user.id
     const cart = await Order.findOne({
       where: {

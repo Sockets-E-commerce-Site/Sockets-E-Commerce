@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../../store/products'
+import {fetchProducts, deletedProducts} from '../../store/products'
 import ProductList from './ProductList'
 
 /*
@@ -8,49 +8,23 @@ parent AllProducts component that uses the ProductList functional component to r
 */
 
 class AllProducts extends Component {
-  constructor() {
-    super()
-    this.state = {
-      filterText: ''
-    }
-    this.handleChange = this.handleChange.bind(this)
-  }
-
   componentDidMount() {
     this.props.loadProducts()
   }
 
-  handleChange(e) {
-    this.setState({
-      filterText: e.target.value
-    })
-  }
-
   //add another component for the map to list out products listProducts
   render() {
-    const {products} = this.props
-    const {filterText} = this.state
+    const {products, user} = this.props
     return (
       <div>
-        {/* <SearchProduct /> */}
-        {/* <select
-          id="select"
-          value={filterText}
-          defaultValue="all"
-          onChange={this.handleChange}
-        >
-          <option value="Other">Other</option>
-          <option value="PC Parts">PC Parts</option>
-          <option value="Video Games">Video Games</option>
-          <option value="Drones">Drones</option>
-        </select> */}
-        <ProductList products={products} />
+        <ProductList products={products} user={user} />
       </div>
     )
   }
 }
 
 const mapState = state => ({
+  user: state.user,
   products: state.products
 })
 const mapDispatch = dispatch => ({

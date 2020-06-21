@@ -47,6 +47,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a
             href="#responsive-header"
             className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white"
+          >
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </a>
+          <a
+            href="#responsive-header"
+            className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white"
             onClick={handleClick}
           >
             <NavLink to="/">Logout</NavLink>
