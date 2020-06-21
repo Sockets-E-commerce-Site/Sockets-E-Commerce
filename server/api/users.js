@@ -33,7 +33,11 @@ router.get('/', async (req, res, next) => {
 router.get('/orders/cart', async (req, res, next) => {
   try {
     if (!req.user) {
+      if (!req.session.cart) {
+        req.session.cart = {products: []}
+      }
       res.json(req.session.cart)
+      return
     } else {
       const userId = req.user.id
       const [usersCart, created] = await Order.findOrCreate({
@@ -128,6 +132,18 @@ router.put('/orders/cart', async (req, res, next) => {
 //remove an item from the cart
 router.delete('/orders/cart', async (req, res, next) => {
   try {
+    if (!req.user) {
+      const products = req.session.cart.products
+      const removedProduct = products.find(
+        product => product.id === req.body.productId
+      )
+
+      const splicePoint = products.indexOf(removedProduct)
+      products.splice(splicePoint, 1)
+
+      res.json(req.session.cart)
+      return
+    }
     const userId = req.user.id
     const cart = await Order.findOne({
       where: {
