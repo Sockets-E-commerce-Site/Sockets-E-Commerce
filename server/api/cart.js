@@ -46,3 +46,25 @@ router.put('/edit', async (req, res, next) => {
     next(error)
   }
 })
+
+//checkout and change status from in cart to pending shipping
+
+router.put('/checkout', async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const finalOrder = await Order.findOne({
+      where: {
+        userId,
+        status: 'in cart'
+      }
+    })
+    if (finalOrder) {
+      finalOrder.update({
+        status: 'pending shipping'
+      })
+    }
+    res.json(finalOrder)
+  } catch (error) {
+    next(error)
+  }
+})
