@@ -27,6 +27,7 @@ export class SingleProduct extends React.Component {
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
     this.props.fetchCart()
+    console.log(this.props.cart)
   }
 
   async handleClick() {
