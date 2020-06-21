@@ -9,6 +9,7 @@ import OrderPage from './components/Orders/OrderPage'
 import SingleProduct from './components/Products/SingleProduct'
 import Cart from './components/Cart/Cart'
 import CheckoutPage from './components/Checkout/CheckoutPage'
+import ConfirmationPage from './components/Checkout/ConfirmationPage'
 import Dashboard from './components/Dashboard/Dashboard'
 import AddProduct from './components/Products/AddProduct'
 /**
@@ -34,6 +35,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/confirmation" component={ConfirmationPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
