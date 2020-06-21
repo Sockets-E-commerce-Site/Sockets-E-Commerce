@@ -49,7 +49,7 @@ router.get('/:productId', async (req, res, next) => {
 router.post('/', adminAuthentication, async (req, res, next) => {
   try {
     const {title, description, invQuantity, photo, category, price} = req.body
-    const addProduct = await Product.creae({
+    const addProduct = await Product.create({
       title,
       description,
       invQuantity,

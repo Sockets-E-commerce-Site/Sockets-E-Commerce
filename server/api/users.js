@@ -142,3 +142,20 @@ router.delete('/orders/cart', async (req, res, next) => {
     next(error)
   }
 })
+
+//change apssword
+// router.put('/newPassword', async(req, res, next) => {
+//   try {
+//       const userId = req.user.id
+//       // const {formerPassWord, newPassWord} = req.body
+//       const [created, afftectUser] = await User.udpate(req.body, {
+//         where: {
+//           userId
+//         },
+//         returning: true,
+//       })
+//       res.json(afftectUser)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
