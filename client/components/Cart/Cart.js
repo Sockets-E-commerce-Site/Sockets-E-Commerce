@@ -39,7 +39,7 @@ class Cart extends React.Component {
             <h1>Nothing in cart!</h1>
           </div>
         )}
-        {this.props.cart.id && this.props.cart.products.length > 0 ? (
+        {this.props.cart && this.props.cart.products.length > 0 ? (
           <NavLink to="/checkout" type="button">
             Checkout!
           </NavLink>
