@@ -46,11 +46,8 @@ export const createProduct = productInfo => async dispatch => {
 
 export const deletedProducts = productId => async dispatch => {
   try {
-    console.log('1')
     await axios.delete(`/api/products/${productId}`)
-    console.log('2')
     dispatch(deleteProduct(productId))
-    console.log('3')
   } catch (error) {
     console.log('error in fetchProducts', error)
   }

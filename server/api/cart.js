@@ -62,6 +62,13 @@ router.put('/edit', async (req, res, next) => {
 
 router.put('/checkout', async (req, res, next) => {
   try {
+    if (!req.user) {
+      req.session.cart.status = 'pending shipping'
+
+      req.session.cart = {status: 'in cart', products: []}
+      res.json(req.session.cart)
+      return
+    }
     const userId = req.user.id
     const finalOrder = await Order.findOne({
       where: {
@@ -85,8 +92,15 @@ router.put('/checkout', async (req, res, next) => {
         purchasePrice: singleproduct.price
       })
     })
+
+    const newCart = await Order.create({
+      where: {
+        userId,
+        status: 'in cart'
+      }
+    })
     //also do inventory reduction
-    res.json(finalOrder)
+    res.json(newCart)
   } catch (error) {
     next(error)
   }
