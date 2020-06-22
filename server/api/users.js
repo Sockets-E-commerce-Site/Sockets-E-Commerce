@@ -15,6 +15,7 @@ const userNotFound = next => {
   next(error)
 }
 
+//get all users, only if an admin
 router.get('/', adminAuthentication, async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -29,12 +30,16 @@ router.get('/', adminAuthentication, async (req, res, next) => {
   }
 })
 
+//get cart data
 router.get('/orders/cart', async (req, res, next) => {
   try {
+    //check to see if they are a guest or a registered user
     if (!req.user) {
+      //if the guest doesn't have a cart setup, this will set it up
       if (!req.session.cart) {
         req.session.cart = {products: []}
       }
+      //if the guest has a cart otherwise, will return the cart in sessions
       res.json(req.session.cart)
       return
     } else {
@@ -47,7 +52,7 @@ router.get('/orders/cart', async (req, res, next) => {
         include: Product
       })
 
-
+      //check to see if the cart was created. If true, refetch cart and include products
       if (created) {
         const emptyCart = await Order.findOne({
           where: {
