@@ -12,6 +12,7 @@ import CheckoutPage from './components/Checkout/CheckoutPage'
 import ConfirmationPage from './components/Checkout/ConfirmationPage'
 import Dashboard from './components/Dashboard/Dashboard'
 import AddProduct from './components/Products/AddProduct'
+import AccountSettings from './components/Dashboard/AccountSettings'
 /**
  * COMPONENT
  */
@@ -29,6 +30,11 @@ class Routes extends Component {
         <Route exact path="/products/:productId" component={SingleProduct} />
         <Route exact path="/users/orders/cart" component={Cart} />
         <Route exact path="/orders" component={OrderPage} />
+        <Route
+          exact
+          path="/dashboard/accountsettings"
+          component={AccountSettings}
+        />
         <Route exact path="/dashboard/admin" component={AddProduct} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/products" component={AllProducts} />

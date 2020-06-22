@@ -30,6 +30,29 @@ router.get('/', adminAuthentication, async (req, res, next) => {
   }
 })
 
+//update user data
+router.get('/update', async (req, res, next) => {
+  try {
+    const {firstName, lastName, password, email} = req.body
+
+    const user = await User.findOne({
+      where: {
+        email: email,
+        password: password
+      }
+    })
+
+    if (user) {
+      await user.update(req.body)
+      res.json(user)
+    } else {
+      res.send('Incorrect password')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 //get cart data
 router.get('/orders/cart', async (req, res, next) => {
   try {
