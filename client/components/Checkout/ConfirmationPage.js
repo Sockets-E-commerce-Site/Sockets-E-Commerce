@@ -2,14 +2,17 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 
+/*
+This is the confirmation page where after a user checksout, they will see a confirmation and their order details.
+*/
+
 class Confirmation extends React.Component {
   render() {
     return (
       <div>
         <h1>Thank you for your order!</h1>
-        <p>Please see your order number below</p>
         <NavLink to="/orders" type="button">
-          OrderID Here
+          See Order Here
         </NavLink>
       </div>
     )
