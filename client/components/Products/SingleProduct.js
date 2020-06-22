@@ -29,6 +29,17 @@ export class SingleProduct extends React.Component {
   }
 
   handleClick() {
+    if (this.props.user.id && this.props.cart) {
+      const foundItem = this.props.cart.products.find(
+        product => product.id === this.props.product.id
+      )
+      if (foundItem) {
+        const quantity = foundItem.productOrder.productQuantity + 1
+        this.props.updateQuantity(this.props.product.id, quantity)
+        this.setState({addedToCart: true})
+        return
+      }
+    }
     this.props.addItem(this.props.product.id)
     this.setState({addedToCart: true})
   }
