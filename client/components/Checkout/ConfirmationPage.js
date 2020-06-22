@@ -8,14 +8,17 @@ class Confirmation extends React.Component {
       <div>
         <h1>Thank you for your order!</h1>
         <p>Please see your order number below</p>
+        <NavLink to="/orders" type="button">
+          OrderID Here
+        </NavLink>
       </div>
     )
   }
 }
 const mapState = state => {
   return {
-    cart: state.cart,
-    user: state.user
+    user: state.user.id,
+    orders: state.order
   }
 }
 
