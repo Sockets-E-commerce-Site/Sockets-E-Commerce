@@ -74,13 +74,11 @@ router.put('/checkout', async (req, res, next) => {
         status: 'pending shipping'
       })
     }
-    console.log('final order', finalOrder)
     const products = await ProductOrder.findAll({
       where: {
         orderId: finalOrder.id
       }
     })
-    console.log('product', products)
     products.forEach(async product => {
       const singleproduct = await Product.findByPk(product.productId)
       await product.update({
