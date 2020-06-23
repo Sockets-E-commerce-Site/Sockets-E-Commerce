@@ -23,7 +23,7 @@ export const fetchReviewsForProduct = productId => async dispatch => {
 export const fetchCreatedReview = reviewInfo => async dispatch => {
   try {
     const {data: review} = await axios.post(
-      `/api/reviews/created/review`,
+      '/api/reviews/created/review',
       reviewInfo
     )
     dispatch(createdReview(review))
@@ -31,10 +31,16 @@ export const fetchCreatedReview = reviewInfo => async dispatch => {
     console.log('error in reivews thunk', error)
   }
 }
-export const fetchUsersUpdatedReview = review => async dispatch => {
+export const fetchUpdatedReview = (review, productId) => async dispatch => {
   try {
-    const {data: udatedReview} = await axios.post(`/api/reviews/edit`, review)
-    dispatch(setReviews(udatedReview))
+    console.log('1')
+    const {data: reviewUpdated} = await axios.put('/api/reviews/edit', {
+      review,
+      productId
+    })
+    console.log('reviewUpdaated', reviewUpdated)
+    dispatch(setReviews(reviewUpdated))
+    console.log('3')
   } catch (error) {
     console.log('error in reivews thunk', error)
   }

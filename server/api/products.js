@@ -16,6 +16,7 @@ router.get('/', async (req, res, next) => {
   try {
     let filter = {}
     const search = req.query.search
+    console.log(JSON.stringify(search))
     if (search) {
       filter = {
         where: {

@@ -60,11 +60,7 @@ const products = (state = [], action) => {
     case CREATE_PRODUCT:
       return [...state, action.product]
     case DELETE_PRODUCTS:
-      return [...state].filter(product => {
-        if (product.id !== action.productId) {
-          return product
-        }
-      })
+      return state.filter(product => product.id !== action.productId)
     default:
       return state
   }

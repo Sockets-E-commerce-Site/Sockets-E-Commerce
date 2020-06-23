@@ -15,11 +15,12 @@ class ReviewsForProduct extends Component {
   }
 
   render() {
+    const productId = this.props.productId
     const {reviews} = this.props
     const {user} = this.props
     return (
       <div>
-        <ReviewsList user={user} reviews={reviews} />
+        <ReviewsList productId={productId} user={user} reviews={reviews} />
       </div>
     )
   }

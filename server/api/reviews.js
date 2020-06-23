@@ -3,6 +3,7 @@ const router = require('express').Router()
 const {Product, Order, Review} = require('../db/models')
 const {Op} = require('sequelize')
 const adminAuthentication = require('./admin')
+const {resolveConfig} = require('prettier')
 
 module.exports = router
 
@@ -66,13 +67,16 @@ router.put('/edit', async (req, res, next) => {
   try {
     if (req.user) {
       const userId = req.user.id
+      const {productId} = req.body
       const editReview = await Review.findOne({
         where: {
-          userId
+          userId,
+          productId
         }
       })
-      const {title, content, rating} = req.body
-      editReview.update(
+
+      const {title, content, rating} = req.body.review
+      await editReview.update(
         {
           title,
           content,
@@ -82,7 +86,13 @@ router.put('/edit', async (req, res, next) => {
           returning: true
         }
       )
-      res.json('review has been updated')
+
+      const updateReview = await Review.findAll({
+        where: {
+          productId
+        }
+      })
+      res.json(updateReview)
     } else {
       res.status(404).send({
         error: {status: 404, message: 'create a account to review a product'}
