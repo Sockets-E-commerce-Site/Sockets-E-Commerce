@@ -108,7 +108,7 @@ router.put('/checkout', async (req, res, next) => {
 
 router.put('/mergecarts', async (req, res, next) => {
   try {
-    const [userCart, created] = await Order.findOrCreate({
+    let [userCart, created] = await Order.findOrCreate({
       where: {
         userId: req.user.id,
         status: 'in cart'
@@ -163,6 +163,26 @@ router.put('/mergecarts', async (req, res, next) => {
         } else {
           const newProduct = await Product.findByPk(product.id)
           await userCart.addProduct(newProduct)
+
+          userCart = await Order.findOne({
+            where: {
+              userId: req.user.id,
+              status: 'in cart'
+            },
+            include: Product
+          })
+          const foundInCart = userCart.products.find(item => {
+            return item.id === product.id
+          })
+
+          if (
+            foundInCart.productOrder.productQuantity <
+            product.productOrder.productQuantity
+          ) {
+            await foundInCart.productOrder.update({
+              productQuantity: product.productOrder.productQuantity
+            })
+          }
         }
       })
       res.json(userCart)
