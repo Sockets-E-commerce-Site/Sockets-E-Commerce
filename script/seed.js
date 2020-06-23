@@ -34,10 +34,10 @@ async function seed() {
   const seedProducts = async function() {
     for (let i = 0; i < 100; i++) {
       await Product.create({
-        invQuantity: 10,
+        invQuantity: randomInt(20) + 1,
         title: faker.commerce.productName(),
         description: faker.lorem.paragraph(),
-        photo: faker.image.technics(),
+        photo: faker.image.technics(640, 480, randomInt(10) + 1),
         category: productCategories[randomInt(4)],
         price: faker.finance.amount(1, 100, 2)
       })
