@@ -40,7 +40,7 @@ export default function ProductCard(props) {
             {selectBar}
           </select>
           <button
-            className="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
+            className="flex shadow-md text-white bg-blue-500 border-0 py-1/4 px-3 focus:outline-none hover:bg-blue-600 rounded text-2xl"
             type="button"
             onClick={() => {
               quantity--
@@ -50,7 +50,7 @@ export default function ProductCard(props) {
             -
           </button>
           <button
-            className="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
+            className="flex shadow-md text-white bg-blue-500 border-0 py-1/4 px-2 focus:outline-none hover:bg-blue-600 rounded text-2xl"
             type="button"
             onClick={() => {
               quantity++
@@ -61,7 +61,11 @@ export default function ProductCard(props) {
           </button>
         </div>
         <div className="flex items-center justify-end mt-4 top-auto">
-          <button type="button" onClick={() => props.deleteItem(id)}>
+          <button
+            type="button"
+            onClick={() => props.deleteItem(id)}
+            className="flex shadow-md text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+          >
             Remove from Cart
           </button>
         </div>
