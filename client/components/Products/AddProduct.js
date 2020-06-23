@@ -41,9 +41,9 @@ class AddProduct extends Component {
     const {title, description, invQuantity, photo, category, price} = this.state
     return (
       <div>
-        <div className="flex mx-auto items-center justify-center shadow-lg mt-6 mx-8 mb-4 max-w-lg">
+        <div className="flex mx-auto items-center justify-center shadow-lg ">
           <form
-            className="w-full max-w-xl bg-white rounded-lg px-4 pt-2"
+            className="bg-white rounded-lg px-4 pt-2"
             onSubmit={this.handleSubmit}
           >
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -67,7 +67,7 @@ class AddProduct extends Component {
               <div className="w-full md:w-full px-3 mb-2 mt-2">
                 <label
                   className="uppercase text-gray-700 text-xs font-boldm py-1 px-4 tracking-wide mr-2 "
-                  htmlFor="title"
+                  htmlFor="price"
                 >
                   Price
                 </label>
@@ -77,7 +77,7 @@ class AddProduct extends Component {
                   name="price"
                   value={price}
                   onChange={this.handleChange}
-                  placeholder="Title"
+                  placeholder="price"
                   required
                 />
               </div>

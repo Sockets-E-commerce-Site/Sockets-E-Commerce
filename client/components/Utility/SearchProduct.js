@@ -12,12 +12,16 @@ class SearchForGame extends Component {
       search: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
+  }
+
+  handleSubmit() {
     const {search} = this.state
     this.props.loadProducts(search)
   }
@@ -34,6 +38,13 @@ class SearchForGame extends Component {
           name="search"
           onChange={this.handleChange}
         />
+        <button
+          className="flex-shrink-0 bg-indigo-900 hover:bg-indigo-700 border-indigo-900 hover:border-indigo-700 text-sm border-4 text-white py-1 px-2 rounded"
+          type="button"
+          onClick={this.handleSubmit}
+        >
+          Search
+        </button>
       </div>
     )
   }

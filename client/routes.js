@@ -11,6 +11,7 @@ import Cart from './components/Cart/Cart'
 import CheckoutPage from './components/Checkout/CheckoutPage'
 import Dashboard from './components/Dashboard/Dashboard'
 import AddProduct from './components/Products/AddProduct'
+import AdminUsers from './components/Dashboard/AdminUsers'
 /**
  * COMPONENT
  */
@@ -28,8 +29,16 @@ class Routes extends Component {
         <Route exact path="/products/:productId" component={SingleProduct} />
         <Route exact path="/users/orders/cart" component={Cart} />
         <Route exact path="/orders" component={OrderPage} />
-        <Route exact path="/dashboard/admin" component={AddProduct} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route
+          path="/dashboard/admin"
+          render={props => (
+            <div>
+              <AddProduct />
+              <AdminUsers />
+            </div>
+          )}
+        />
         <Route path="/products" component={AllProducts} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />

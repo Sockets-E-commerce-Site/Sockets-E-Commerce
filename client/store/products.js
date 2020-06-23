@@ -46,11 +46,8 @@ export const createProduct = productInfo => async dispatch => {
 
 export const deletedProducts = productId => async dispatch => {
   try {
-    console.log('1')
     await axios.delete(`/api/products/${productId}`)
-    console.log('2')
     dispatch(deleteProduct(productId))
-    console.log('3')
   } catch (error) {
     console.log('error in fetchProducts', error)
   }
@@ -63,11 +60,7 @@ const products = (state = [], action) => {
     case CREATE_PRODUCT:
       return [...state, action.product]
     case DELETE_PRODUCTS:
-      return [...state].filter(product => {
-        if (product.id !== action.productId) {
-          return product
-        }
-      })
+      return state.filter(product => product.id !== action.productId)
     default:
       return state
   }
