@@ -76,6 +76,7 @@ router.put('/checkout', async (req, res, next) => {
         status: 'in cart'
       }
     })
+    console.log('userID:', userId)
     if (finalOrder) {
       await finalOrder.update({
         status: 'pending shipping'
@@ -91,15 +92,14 @@ router.put('/checkout', async (req, res, next) => {
       await product.update({
         purchasePrice: singleproduct.price
       })
+      await singleproduct.update({
+        invQuantity: singleproduct.invQuantity - product.productQuantity
+      })
     })
-
     const newCart = await Order.create({
-      where: {
-        userId,
-        status: 'in cart'
-      }
+      userId,
+      status: 'in cart'
     })
-    //also do inventory reduction
     res.json(newCart)
   } catch (error) {
     next(error)
