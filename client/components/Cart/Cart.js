@@ -21,9 +21,11 @@ class Cart extends React.Component {
   render() {
     return (
       <div>
+        {/* send to error page if there's no cart */}
         {!this.props.cart ? (
           <ErrorPage />
         ) : this.props.cart.products.length ? (
+          /* only render cart if cart has a length. Otherwise, render 'nothing in cart' */
           this.props.cart.products.map(product => {
             return (
               <ProductCard
@@ -39,7 +41,8 @@ class Cart extends React.Component {
             <h1>Nothing in cart!</h1>
           </div>
         )}
-        {this.props.cart.id && this.props.cart.products.length > 0 ? (
+        {this.props.cart && this.props.cart.products.length > 0 ? (
+          //only render checkout if they have a cart with a length
           <NavLink to="/checkout" type="button">
             Checkout!
           </NavLink>

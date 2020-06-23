@@ -34,7 +34,6 @@ class AddProduct extends Component {
       category,
       price
     })
-    console.log(this.handleSubmit)
   }
 
   render() {

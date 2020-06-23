@@ -14,11 +14,8 @@ export const setCart = cart => ({
 //set cart to store
 export const fetchCart = () => async dispatch => {
   try {
-    console.log('1')
     const {data} = await axios.get(`/api/users/orders/cart/`)
-    console.log('2')
     dispatch(setCart(data))
-    console.log('3')
   } catch (error) {
     console.log('error in fetchCart', error)
   }
@@ -53,7 +50,7 @@ export const addItem = productId => async dispatch => {
 
 export const checkout = () => async dispatch => {
   try {
-    const {data: finalcart} = await axios.put('./api/cart/checkout')
+    const {data: finalcart} = await axios.put('/api/cart/checkout')
     dispatch(setCart(finalcart))
   } catch (error) {
     console.log('error in checkoutThunk', error)
@@ -76,8 +73,17 @@ export const updateQuantity = (
   }
 }
 
+export const mergeCarts = () => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/cart/mergecarts')
+    dispatch(setCart(data))
+  } catch (error) {
+    console.log('error in mergeCarts', error)
+  }
+}
+
 //REDUCER
-const cart = (state = {products: []}, action) => {
+const cart = (state = {status: 'in cart', products: []}, action) => {
   switch (action.type) {
     case SET_CART:
       return action.cart
