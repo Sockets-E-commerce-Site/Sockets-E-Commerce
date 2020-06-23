@@ -17,7 +17,7 @@ export default function ProductCard(props) {
   }
 
   return (
-    <div className="md:flex shadow-lg  mx-6 md:mx-auto my-10 max-w-lg md:max-w-2xl h-64">
+    <div className="md:flex shadow-lg  mx-6 md:mx-auto my-10 max-w-lg md:max-w-1 h-64">
       <img
         className="h-full w-full md:w-1/3  object-cover rounded-lg rounded-r-none pb-5/6"
         src={photo}
@@ -25,16 +25,12 @@ export default function ProductCard(props) {
       <div className="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
         <h1 className="text-xl text-gray-800 font-medium mr-auto">{title}</h1>
         <p className="text-gray-800 font-semibold tracking-tighter">
-          Price: {price}
+          Price: ${price}
         </p>
         <p>Quantity: {quantity}</p>
-        <button type="button" onClick={() => props.deleteItem(id)}>
-          Remove from Cart
-        </button>
-        <br />
 
         {/* quantity section */}
-        <div className="flex w-8/12">
+        <div className="flex items-center justify-left mt-4 top-auto">
           <label htmlFor="quantity">Set Quantity: </label>
           <br />
           <select
@@ -62,6 +58,11 @@ export default function ProductCard(props) {
             }}
           >
             +
+          </button>
+        </div>
+        <div className="flex items-center justify-end mt-4 top-auto">
+          <button type="button" onClick={() => props.deleteItem(id)}>
+            Remove from Cart
           </button>
         </div>
       </div>

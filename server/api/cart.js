@@ -13,7 +13,9 @@ router.put('/edit', async (req, res, next) => {
         product => product.id === productId
       )
 
-      foundProduct.productOrder.productQuantity = productQuantity
+      if (productQuantity <= foundProduct.invQuantity && productQuantity > 0) {
+        foundProduct.productOrder.productQuantity = productQuantity
+      }
       res.json(req.session.cart)
       return
     }
