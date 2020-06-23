@@ -145,6 +145,27 @@ router.put('/mergecarts', async (req, res, next) => {
       })
 
       res.json(newCart)
+    } else {
+      req.session.cart.products.forEach(async product => {
+        if (userCart.products.some(item => item.id === product.id)) {
+          const foundInCart = userCart.products.find(item => {
+            return item.id === product.id
+          })
+
+          if (
+            foundInCart.productOrder.productQuantity <
+            product.productOrder.productQuantity
+          ) {
+            await foundInCart.productOrder.update({
+              productQuantity: product.productOrder.productQuantity
+            })
+          }
+        } else {
+          const newProduct = await Product.findByPk(product.id)
+          await userCart.addProduct(newProduct)
+        }
+      })
+      res.json(userCart)
     }
   } catch (error) {
     next(error)
