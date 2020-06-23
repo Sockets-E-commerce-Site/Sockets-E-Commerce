@@ -21,10 +21,10 @@ const ProductList = props => {
           key={product.id}
           className=" bg-gray-100 item-center mt-10 w-1/5 p-2 mr-4 rounded shadow-xl"
         >
-          <h4>{product.category}</h4>
           <h4>{product.title}</h4>
-          <h4>{product.invQuantity}</h4>
-          <h4>{product.price}</h4>
+          <h4>{product.category}</h4>
+          <h4>Qty: {product.invQuantity}</h4>
+          <h4>Price: ${product.price}</h4>
           <NavLink to={`/products/${product.id}`}>
             <img className="bg-auto " src={product.photo} />
           </NavLink>

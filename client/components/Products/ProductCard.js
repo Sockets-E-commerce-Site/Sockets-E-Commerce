@@ -5,7 +5,7 @@ This is the child functional single product card/component that is rendering in 
 import React from 'react'
 
 export default function ProductCard(props) {
-  const {title, price, id} = props.product
+  const {title, price, id, photo} = props.product
   const {invQuantity} = props.product
 
   let quantity = props.product.productOrder.productQuantity
@@ -17,41 +17,54 @@ export default function ProductCard(props) {
   }
 
   return (
-    <div>
-      <h1>Title: {title}</h1>
-      <h1>Price: {price}</h1>
-      <h1>Quantity: {quantity}</h1>
-      <button type="button" onClick={() => props.deleteItem(id)}>
-        Remove from Cart
-      </button>
-      <br />
+    <div className="md:flex shadow-lg  mx-6 md:mx-auto my-10 max-w-lg md:max-w-2xl h-64">
+      <img
+        className="h-full w-full md:w-1/3  object-cover rounded-lg rounded-r-none pb-5/6"
+        src={photo}
+      />
+      <div className="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
+        <h1 className="text-xl text-gray-800 font-medium mr-auto">{title}</h1>
+        <p className="text-gray-800 font-semibold tracking-tighter">
+          Price: {price}
+        </p>
+        <p>Quantity: {quantity}</p>
+        <button type="button" onClick={() => props.deleteItem(id)}>
+          Remove from Cart
+        </button>
+        <br />
 
-      {/* quantity section */}
-      <label htmlFor="quantity">Set Quantity: </label>
-      <select
-        name="quantity"
-        onChange={e => props.updateQuantity(id, e.target.value)}
-      >
-        {selectBar}
-      </select>
-      <button
-        type="button"
-        onClick={() => {
-          quantity--
-          return props.updateQuantity(id, quantity)
-        }}
-      >
-        -
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          quantity++
-          return props.updateQuantity(id, quantity)
-        }}
-      >
-        +
-      </button>
+        {/* quantity section */}
+        <div className="flex w-8/12">
+          <label htmlFor="quantity">Set Quantity: </label>
+          <br />
+          <select
+            name="quantity"
+            onChange={e => props.updateQuantity(id, e.target.value)}
+          >
+            {selectBar}
+          </select>
+          <button
+            className="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
+            type="button"
+            onClick={() => {
+              quantity--
+              return props.updateQuantity(id, quantity)
+            }}
+          >
+            -
+          </button>
+          <button
+            className="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
+            type="button"
+            onClick={() => {
+              quantity++
+              return props.updateQuantity(id, quantity)
+            }}
+          >
+            +
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

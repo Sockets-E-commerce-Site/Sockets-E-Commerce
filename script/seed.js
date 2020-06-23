@@ -39,7 +39,7 @@ async function seed() {
         description: faker.lorem.paragraph(),
         photo: faker.image.technics(),
         category: productCategories[randomInt(4)],
-        price: faker.commerce.price()
+        price: faker.finance.amount(1, 100, 2)
       })
     }
   }

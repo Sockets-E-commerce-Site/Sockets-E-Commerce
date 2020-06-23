@@ -33,7 +33,7 @@ const Product = db.define('product', {
     values: ['Video Games', 'PC Parts', 'Drones', 'Other']
   },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.FLOAT(10, 2)
   }
 })
 
