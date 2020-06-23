@@ -73,6 +73,15 @@ export const updateQuantity = (
   }
 }
 
+export const mergeCarts = () => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/cart/mergecarts')
+    dispatch(setCart(data))
+  } catch (error) {
+    console.log('error in mergeCarts', error)
+  }
+}
+
 //REDUCER
 const cart = (state = {status: 'in cart', products: []}, action) => {
   switch (action.type) {

@@ -76,7 +76,7 @@ router.put('/checkout', async (req, res, next) => {
         status: 'in cart'
       }
     })
-    console.log('userID:', userId)
+
     if (finalOrder) {
       await finalOrder.update({
         status: 'pending shipping'
@@ -101,6 +101,51 @@ router.put('/checkout', async (req, res, next) => {
       status: 'in cart'
     })
     res.json(newCart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/mergecarts', async (req, res, next) => {
+  try {
+    const [userCart, created] = await Order.findOrCreate({
+      where: {
+        userId: req.user.id,
+        status: 'in cart'
+      },
+      include: Product
+    })
+
+    if (created) {
+      req.session.cart.products.forEach(async product => {
+        const addProduct = await Product.findByPk(product.id)
+        await userCart.addProduct(addProduct)
+        const newCart = await Order.findOne({
+          where: {
+            id: userCart.id
+          },
+          include: Product
+        })
+        const foundProduct = newCart.products.find(
+          item => item.id === product.id
+        )
+
+        await foundProduct.productOrder.update(
+          {productQuantity: product.productOrder.productQuantity},
+          {
+            returning: true
+          }
+        )
+      })
+      const newCart = await Order.findOne({
+        where: {
+          id: userCart.id
+        },
+        include: Product
+      })
+
+      res.json(newCart)
+    }
   } catch (error) {
     next(error)
   }
