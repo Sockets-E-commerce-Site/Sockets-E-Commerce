@@ -16,6 +16,8 @@ export default function ProductCard(props) {
     selectBar.push(<option value={`${i}`}>{i}</option>)
   }
 
+  let total = props.product.price * props.product.productOrder.productQuantity
+
   return (
     <div className="md:flex shadow-lg  mx-6 md:mx-auto my-10 max-w-lg md:max-w-1 h-64">
       <img
@@ -28,6 +30,7 @@ export default function ProductCard(props) {
           Price: ${price}
         </p>
         <p>Quantity: {quantity}</p>
+        <p>Total Price: {total.toFixed(2)}</p>
 
         {/* quantity section */}
         <div className="flex items-center justify-left mt-4 top-auto">
