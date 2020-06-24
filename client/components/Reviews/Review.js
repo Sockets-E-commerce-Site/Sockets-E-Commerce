@@ -45,10 +45,16 @@ class Review extends Component {
       <div className="flex mx-auto items-center justify-center shadow-lg mt-6 mx-8 mb-4 max-w-lg">
         {!editMode ? (
           <div>
-            <h2>{user.firstName}</h2>
-            <h2>{review.title}</h2>
+            <h2 className="text-sm title-font text-gray-500 tracking-widest">
+              {user.firstName}
+            </h2>
+            <h2 className="text-gray-900 title-font font-medium mb-1">
+              {review.title}
+            </h2>
             <h2>{review.content}</h2>
-            <h2>{review.rating}</h2>
+            <h2 className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+              Rating: {review.rating}
+            </h2>
             {user.id === review.userId ? (
               <button
                 type="button"
