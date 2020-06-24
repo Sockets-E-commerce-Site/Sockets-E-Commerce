@@ -8,10 +8,10 @@ class AddProduct extends Component {
     this.state = {
       title: '',
       description: '',
-      invQuantity: '',
+      invQuantity: 0,
       photo: '',
       category: '',
-      price: ''
+      price: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
