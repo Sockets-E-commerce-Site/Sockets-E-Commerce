@@ -19,7 +19,7 @@ const UsersOrders = props => {
                 {product.title}
               </h4>
               <h4 className="text-gray-800 font-semibold tracking-tighter">
-                ${product.price.toFixed(2)}
+                ${product.price}
               </h4>
               <h4>{product.description}</h4>
               <h4 className="flex items-center justify-left mt-4 top-auto">

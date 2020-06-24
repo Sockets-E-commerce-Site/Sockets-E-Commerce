@@ -27,7 +27,7 @@ export default function ProductCard(props) {
       <div className="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
         <h1 className="text-xl text-gray-800 font-medium mr-auto">{title}</h1>
         <p className="text-gray-800 font-semibold tracking-tighter">
-          Price: ${price.toFixed(2)}
+          Price: ${price}
         </p>
         <p>Quantity: {quantity}</p>
         <p>Total Price: {total.toFixed(2)}</p>

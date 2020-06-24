@@ -38,7 +38,7 @@ class CheckoutPage extends React.Component {
           return <CheckoutProduct product={product} key={product.id} />
         })}
         <h1 className="text-gray-800 flex justify-center font-semibold tracking-tighter">
-          Total: ${total}
+          Total: ${total.toFixed(2)}
         </h1>
         <div className="mt-6 flex justify-center h-12 relative">
           <NavLink
