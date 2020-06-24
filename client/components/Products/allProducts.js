@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, deletedProducts} from '../../store/products'
 import ProductList from './ProductList'
+import DropDownMenu from './DropDownMenu'
 
 /*
 parent AllProducts component that uses the ProductList functional component to render out all products in our store
@@ -17,6 +18,7 @@ class AllProducts extends Component {
     const {products, user} = this.props
     return (
       <div>
+        <DropDownMenu products={products} />
         <ProductList products={products} user={user} />
       </div>
     )

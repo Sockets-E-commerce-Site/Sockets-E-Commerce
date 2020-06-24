@@ -2,13 +2,12 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {deletedProducts} from '../../store/products'
-import alert from '../Utility/alert'
 
 /*
 functional child productList component connected to the allProducts parent to map through all products in our store
 */
 const ProductList = props => {
-  const {products, user} = props
+  const {products, user, category} = props
 
   function handleDelete(productId) {
     props.deletedProduct(productId)

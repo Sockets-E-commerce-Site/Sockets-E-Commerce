@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, ProductOrder} = require('../db/models')
 const {Op} = require('sequelize')
 const adminAuthentication = require('./admin')
 // adminAuthentication going ot put our middileware for eddiitng and deleting products on page
@@ -39,7 +39,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:productId', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId)
+    const {productId} = req.params
+    const product = await Product.findByPk(productId)
     res.json(product)
   } catch (err) {
     next(err)
@@ -62,6 +63,27 @@ router.post('/', adminAuthentication, async (req, res, next) => {
     } else {
       res.json(addProduct)
     }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/filter/category', async (req, res, next) => {
+  try {
+    // query gets the value
+    const {category} = req.query
+    if (!category || category === 'All') {
+      const allProducts = await Product.findAll()
+      res.json(allProducts)
+      return
+    }
+    const getCategory = await Product.findAll({
+      where: {
+        // category on right side is the query
+        category: category
+      }
+    })
+    res.json(getCategory)
   } catch (error) {
     next(error)
   }
