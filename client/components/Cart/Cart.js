@@ -25,7 +25,6 @@ class Cart extends React.Component {
       total += product.price * product.productOrder.productQuantity
     })
 
-    console.log(total)
     return (
       <div>
         {/* send to error page if there's no cart */}
