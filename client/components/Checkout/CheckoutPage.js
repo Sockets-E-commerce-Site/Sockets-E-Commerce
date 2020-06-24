@@ -25,12 +25,19 @@ class CheckoutPage extends React.Component {
   }
 
   render() {
+    const {products} = this.props.cart
+    let total = 0
+    products.forEach(product => {
+      total += product.price * product.productOrder.productQuantity
+    })
+
     return (
       <div>
         <h1>Checkout</h1>
         {this.props.cart.products.map(product => {
           return <CheckoutProduct product={product} key={product.id} />
         })}
+        <h1>Total: ${total}</h1>
         <NavLink to="/confirmation" type="button" onClick={this.checkout}>
           Submit Order
         </NavLink>
