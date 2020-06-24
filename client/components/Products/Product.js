@@ -36,7 +36,7 @@ export default function Product(props) {
             </p>
             <p className="leading-relaxed">Description: {description}</p>
             <p className="title-font font-medium text-2xl text-gray-900">
-              ${price.toFixed(2)}
+              ${price}
             </p>
           </div>
         </div>
