@@ -33,14 +33,23 @@ class CheckoutPage extends React.Component {
 
     return (
       <div>
-        <h1>Checkout</h1>
+        <h1 className="text-xl text-gray-800 font-medium mr-auto">Checkout</h1>
         {this.props.cart.products.map(product => {
           return <CheckoutProduct product={product} key={product.id} />
         })}
-        <h1>Total: ${total}</h1>
-        <NavLink to="/confirmation" type="button" onClick={this.checkout}>
-          Submit Order
-        </NavLink>
+        <h1 className="text-gray-800 flex justify-center font-semibold tracking-tighter">
+          Total: ${total}
+        </h1>
+        <div className="mt-6 flex justify-center h-12 relative">
+          <NavLink
+            to="/confirmation"
+            type="button"
+            className="flex shadow-md text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+            onClick={this.checkout}
+          >
+            Submit Order
+          </NavLink>
+        </div>
       </div>
     )
   }
