@@ -28,7 +28,7 @@ const ProductList = props => {
             {product.category}
           </h4>
           <h4 className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-            ${product.price}
+            ${product.price.toFixed(2)}
           </h4>
           <NavLink to={`/products/${product.id}`}>
             <img className="bg-auto " src={product.photo} />

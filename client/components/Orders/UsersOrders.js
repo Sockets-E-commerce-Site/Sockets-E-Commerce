@@ -10,7 +10,7 @@ const UsersOrders = props => {
       {products.map(product => (
         <div key={product.id}>
           <h4>{product.title}</h4>
-          <h4>{product.price}</h4>
+          <h4>${product.price.toFixed(2)}</h4>
           <img src={product.photo} />
           <h4>{product.description}</h4>
           <h4>{product.productOrder.productQuantity}</h4>

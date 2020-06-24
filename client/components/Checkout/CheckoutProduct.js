@@ -14,9 +14,9 @@ export default function CheckoutProduct(props) {
   return (
     <div>
       <h1>Title: {title}</h1>
-      <h1>Price: {price}</h1>
+      <h1>Price: ${price.toFixed(2)}</h1>
       <h1>Quantity: {quantity}</h1>
-      <h1>Total Price: ${total}</h1>
+      <h1>Total Price: ${total.toFixed(2)}</h1>
     </div>
   )
 }
