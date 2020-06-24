@@ -14,12 +14,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       <span className="font-semibold text-xl tracking-tight">Sockets</span>
     </div>
-    <div className="flex  flex-shrink-0 text-white ">
-      <SearchProduct />
-    </div>
     <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       {isLoggedIn ? (
-        <div className="text-sm lg:flex-grow">
+        <div className="lg:flex-grow">
           <a
             href="#responsive-header"
             className="block mr-6 lg:inline-block lg:mt-0 text-indigo-100 hover:text-white mr-4"
@@ -57,6 +54,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           >
             <NavLink to="/">Logout</NavLink>
           </a>
+          <div className="inline-block  mr-3  ">
+            <div
+              className="inline-block py-2 px-4 text-gray-400 cursor-not-allowed"
+              href="#"
+            >
+              <SearchProduct />
+            </div>
+          </div>
         </div>
       ) : (
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">

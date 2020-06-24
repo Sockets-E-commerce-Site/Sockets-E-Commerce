@@ -16,7 +16,7 @@ export default function CheckoutProduct(props) {
       <h1 className="text-gray-800 font-medium mr-auto">{title}</h1>
       <div>
         <h1 className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          Price: ${price.toFixed(2)}
+          Price: ${price}
         </h1>
         <h1 className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
           Qty: {quantity}
