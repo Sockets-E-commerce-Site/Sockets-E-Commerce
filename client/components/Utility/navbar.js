@@ -14,6 +14,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <div className="flex items-center flex-shrink-0 text-white mr-6">
       <span className="font-semibold text-xl tracking-tight">Sockets</span>
     </div>
+    <SearchProduct />
     <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       {isLoggedIn ? (
         <div className="lg:flex-grow">
@@ -58,9 +59,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <div
               className="inline-block py-2 px-4 text-gray-400 cursor-not-allowed"
               href="#"
-            >
-              <SearchProduct />
-            </div>
+            />
           </div>
         </div>
       ) : (
