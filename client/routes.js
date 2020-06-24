@@ -13,6 +13,7 @@ import ConfirmationPage from './components/Checkout/ConfirmationPage'
 import Dashboard from './components/Dashboard/Dashboard'
 import AddProduct from './components/Products/AddProduct'
 import AdminUsers from './components/Dashboard/AdminUsers'
+import AdminProducts from './components/Dashboard/AdminProducts'
 /**
  * COMPONENT
  */
@@ -37,6 +38,7 @@ class Routes extends Component {
             <div>
               <AddProduct />
               <AdminUsers />
+              <AdminProducts />
             </div>
           )}
         />

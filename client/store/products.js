@@ -31,7 +31,16 @@ export const fetchProducts = query => async dispatch => {
   }
 }
 
-// admin post route creating a porduct for site
+export const getCategory = query => async dispatch => {
+  try {
+    const {data: category} = await axios.get(
+      `/api/products/filter/category?category=${query}`
+    )
+    dispatch(setProducts(category))
+  } catch (error) {
+    console.log('error in category product thunk', error)
+  }
+}
 export const createProduct = productInfo => async dispatch => {
   try {
     const {data: productCreated} = await axios.post(
@@ -43,6 +52,7 @@ export const createProduct = productInfo => async dispatch => {
     console.log('error in create product thunk', error)
   }
 }
+// admin post route creating a porduct for site
 
 export const deletedProducts = productId => async dispatch => {
   try {

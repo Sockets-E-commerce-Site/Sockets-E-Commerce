@@ -13,6 +13,7 @@ class SearchForGame extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
   }
 
   handleChange(e) {
@@ -21,12 +22,21 @@ class SearchForGame extends Component {
     })
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault()
     const {search} = this.state
     this.props.loadProducts(search)
   }
 
+  onKeyDown(e) {
+    const {search} = this.state
+    if (e.key === 'Enter') {
+      this.props.loadProducts(search)
+    }
+  }
+
   render() {
+    const {search} = this.state
     return (
       <div className="flex items-center border-b border-b-2 border-indigo-900 py-2">
         <input
@@ -34,8 +44,9 @@ class SearchForGame extends Component {
           type="search"
           placeholder="Search Product..."
           aria-label="Full name"
-          value={this.state.search}
+          value={search}
           name="search"
+          onKeyDown={this.onKeyDown}
           onChange={this.handleChange}
         />
         <button

@@ -34,6 +34,14 @@ class AddProduct extends Component {
       category,
       price
     })
+    this.setState({
+      title: '',
+      description: '',
+      invQuantity: '',
+      photo: '',
+      category: '',
+      price: ''
+    })
   }
 
   render() {

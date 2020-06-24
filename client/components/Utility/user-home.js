@@ -11,8 +11,6 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h2>Welcome to Sockets, {email}!</h2>
-      <br />
       <Homepage />
     </div>
   )
