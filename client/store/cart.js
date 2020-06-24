@@ -50,8 +50,8 @@ export const addItem = productId => async dispatch => {
 
 export const checkout = () => async dispatch => {
   try {
-    const {data: finalcart} = await axios.put('/api/cart/checkout')
-    dispatch(setCart(finalcart))
+    const {data: newCart} = await axios.put('/api/cart/checkout')
+    dispatch(setCart(newCart))
   } catch (error) {
     console.log('error in checkoutThunk', error)
   }

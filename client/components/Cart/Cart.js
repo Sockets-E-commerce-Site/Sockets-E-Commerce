@@ -19,6 +19,12 @@ class Cart extends React.Component {
   }
 
   render() {
+    const {products} = this.props.cart
+    let total = 0
+    products.forEach(product => {
+      total += product.price * product.productOrder.productQuantity
+    })
+
     return (
       <div>
         {/* send to error page if there's no cart */}
@@ -43,9 +49,12 @@ class Cart extends React.Component {
         )}
         {this.props.cart && this.props.cart.products.length > 0 ? (
           //only render checkout if they have a cart with a length
-          <NavLink to="/checkout" type="button">
-            Checkout!
-          </NavLink>
+          <div>
+            <h1>Total: ${total.toFixed(2)}</h1>
+            <NavLink to="/checkout" type="button">
+              Checkout!
+            </NavLink>
+          </div>
         ) : (
           <div />
         )}

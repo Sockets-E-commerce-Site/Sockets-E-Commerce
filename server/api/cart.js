@@ -84,6 +84,7 @@ router.put('/checkout', async (req, res, next) => {
         status: 'pending shipping'
       })
     }
+
     const products = await ProductOrder.findAll({
       where: {
         orderId: finalOrder.id
@@ -98,10 +99,20 @@ router.put('/checkout', async (req, res, next) => {
         invQuantity: singleproduct.invQuantity - product.productQuantity
       })
     })
-    const newCart = await Order.create({
+
+    await Order.create({
       userId,
       status: 'in cart'
     })
+
+    const newCart = await Order.findOne({
+      where: {
+        userId,
+        status: 'in cart'
+      },
+      include: Product
+    })
+
     res.json(newCart)
   } catch (error) {
     next(error)
