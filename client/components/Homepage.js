@@ -7,10 +7,9 @@ export default class Homepage extends Component {
   render() {
     return (
       <div>
-        <h1>welcome to homepage</h1>
         <NavLink to="/products">
           <h1 className="bg-gray-500 w-24 hover:bg-blue-700 text-white px-2  rounded">
-            Shop Now
+            Shop Now!
           </h1>
         </NavLink>
       </div>

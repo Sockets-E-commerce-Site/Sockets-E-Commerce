@@ -44,16 +44,31 @@ class Cart extends React.Component {
           })
         ) : (
           <div>
-            <h1>Nothing in cart!</h1>
+            <h1 className="text-xl text-gray-800 font-medium mr-auto">
+              Nothing in cart!
+            </h1>
+            <NavLink to="/products">
+              <h1 className="bg-gray-500 w-24 hover:bg-blue-700 text-white px-2  rounded">
+                Shop Now!
+              </h1>
+            </NavLink>
           </div>
         )}
         {this.props.cart && this.props.cart.products.length > 0 ? (
           //only render checkout if they have a cart with a length
           <div>
-            <h1>Total: ${total.toFixed(2)}</h1>
-            <NavLink to="/checkout" type="button">
-              Checkout!
-            </NavLink>
+            <h1 className="text-gray-800 text-3xl flex justify-center font-semibold tracking-tighter">
+              Total: ${total.toFixed(2)}
+            </h1>
+            <h2 className="mt-6 flex justify-center h-12 relative">
+              <NavLink
+                to="/checkout"
+                type="button"
+                className="flex shadow-md text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+              >
+                Checkout!
+              </NavLink>
+            </h2>
           </div>
         ) : (
           <div />

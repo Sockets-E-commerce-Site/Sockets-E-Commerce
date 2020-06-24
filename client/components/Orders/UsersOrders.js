@@ -9,11 +9,24 @@ const UsersOrders = props => {
     <div>
       {products.map(product => (
         <div key={product.id}>
-          <h4>{product.title}</h4>
-          <h4>${product.price.toFixed(2)}</h4>
-          <img src={product.photo} />
-          <h4>{product.description}</h4>
-          <h4>{product.productOrder.productQuantity}</h4>
+          <div className="md:flex shadow-lg  mx-6 md:mx-auto my-10 max-w-lg md:max-w-1 h-64">
+            <img
+              className="h-full w-full md:w-1/3  object-cover rounded-lg rounded-r-none pb-5/6"
+              src={product.photo}
+            />
+            <div className="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
+              <h4 className="text-xl text-gray-800 font-medium mr-auto">
+                {product.title}
+              </h4>
+              <h4 className="text-gray-800 font-semibold tracking-tighter">
+                ${product.price.toFixed(2)}
+              </h4>
+              <h4>{product.description}</h4>
+              <h4 className="flex items-center justify-left mt-4 top-auto">
+                Qty: {product.productOrder.productQuantity}
+              </h4>
+            </div>
+          </div>
         </div>
       ))}
     </div>
