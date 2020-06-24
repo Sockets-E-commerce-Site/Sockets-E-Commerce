@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchOrders} from '../../store/order'
 import ErrorPage from '../Utility/ErrorPage'
 import UsersOrders from './UsersOrders'
+import NoOrdersAllert from '../Utility/NoOrdersAllert'
 
 // shows all the orders for that User
 class OrderPage extends Component {
@@ -26,13 +27,13 @@ class OrderPage extends Component {
     return (
       <div>
         {!orders.length ? (
-          <ErrorPage />
+          <NoOrdersAllert />
         ) : isLoaded && orders.length ? (
           <div>
             {orders.map(order => <UsersOrders key={order.id} order={order} />)}
           </div>
         ) : (
-          <h1>nothing in order</h1>
+          <ErrorPage />
         )}
       </div>
     )
