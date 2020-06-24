@@ -21,14 +21,18 @@ const ProductList = props => {
           key={product.id}
           className=" bg-gray-100 item-center mt-10 w-1/5 p-2 mr-4 rounded shadow-xl"
         >
-          <h4>{product.title}</h4>
-          <h4>{product.category}</h4>
-          <h4>Qty: {product.invQuantity}</h4>
-          <h4>Price: ${product.price}</h4>
+          <h4 className="text-gray-900 title-font font-medium mb-1">
+            {product.title}
+          </h4>
+          <h4 className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+            {product.category}
+          </h4>
+          <h4 className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+            ${product.price}
+          </h4>
           <NavLink to={`/products/${product.id}`}>
             <img className="bg-auto " src={product.photo} />
           </NavLink>
-          <h4>{product.description}</h4>
           {user.isAdmin ? (
             <button
               className="bg-red-500 hover:bg-red-700  text-white font-bold py-2 px-4 rounded"

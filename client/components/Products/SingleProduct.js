@@ -73,7 +73,9 @@ export class SingleProduct extends React.Component {
           </button>
         </div>
         <CreateReview productId={productId} />
-        <ReviewsForProduct productId={productId} />
+        <div className="flex mx-auto items-center justify-center shadow-lg mt-6 mx-8 mb-4 max-w-lg">
+          <ReviewsForProduct productId={productId} />
+        </div>
       </div>
     )
   }
